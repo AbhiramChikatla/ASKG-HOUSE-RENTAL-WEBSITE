@@ -1,0 +1,436 @@
+import React from "react";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
+import prp1 from "../assets/prp1.png";
+import prp2 from "../assets/prp2.png";
+import prp3 from "../assets/prp3.png";
+import alert from "../assets/alert.png";
+import checked from "../assets/checked.png";
+import { useForm } from "react-hook-form";
+import { useState } from "react";
+import agent from "../assets/agent.png";
+import env from "../assets/envelope.png";
+import phonecall from "../assets/telephone.png";
+
+import site1 from "../assets/site1.png";
+import site2 from "../assets/site2.png";
+import site3 from "../assets/site3.png";
+import site4 from "../assets/site4.png";
+import site5 from "../assets/site5.png";
+
+import bath from "../assets/bath.png";
+import location from "../assets/location.png";
+import bed from "../assets/bed.png";
+import expand from "../assets/expand.png";
+import family from "../assets/family.png";
+import { Link } from "react-router-dom";
+
+
+import right from "../assets/right-arrow.png"
+import Slider from "../components/Slider";
+const PropertyDetails = () => {
+    const [visible, setVisible] = useState(true);
+    const {
+        register,
+        handleSubmit,
+        reset,
+        watch,
+        formState: { errors, isSubmitting, isSubmitSuccessful, isSubmitted },
+    } = useForm();
+    function tochange() {
+        setTimeout(() => {
+            setVisible(false);
+        }, 2000);
+        setVisible(true);
+    }
+
+    const onSubmit = async (data) => {
+        // console.log(data);
+        reset();
+        let response = await fetch("http://localhost:3000/propertydetails", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+        });
+        let content = await response.text();
+        console.log(content, response);
+    };
+    return (
+        <div>
+            <Navbar />
+            <div className="main bg-[#FFF9F6] w-full mt-5">
+                <div className="main-wrapper xl:mx-40 xl:py-20 lg:mx-28 lg:py-10 md:mx-16 md:py-6 sm:mx-8 sm:py-4 mx-5 py-2">
+                    <div className="images flex gap-5 justify-center items-center flex-col lg:flex-row gap-y-10">
+                        <div className="one">
+                            <img src={prp1} alt="" />
+                        </div>
+                        <div className="two flex flex-col gap-4">
+                            <img src={prp2} alt="" />
+                            <img src={prp3} alt="" />
+                        </div>
+                    </div>
+                    <div className="client-content flex gap-5 justify-center  flex-col lg:flex-row gap-y-10 my-5 rounded-md">
+                        <div className="one border-2 border-gray-300 lg:w-2/3 bg-white sm:p-10 rounded-md mx-auto w-full px-4  py-5 ">
+                            <h1 className="text-2xl font-bold tracking-wide py-2">
+                                {" "}
+                                Trovilla Plan in Sereno Canyon - Estate
+                                Collection by Toll Brothers{" "}
+                            </h1>
+                            <p className="font-semibold tracking-wide text-lg py-4">
+                                2861 62nd Ave, Oakland, CA 94605
+                            </p>
+                            <div className="flex gap-5 py-5 flex-wrap justify-start sm:justify-normal">
+                                <button className="border-[1px] border-gray-500 py-2 px-2 bg-transparent rounded-md">
+                                    <div className="text-xl font-bold tracking-wide ">
+                                        {" "}
+                                        $649,900{" "}
+                                    </div>{" "}
+                                    <span className="text-[#6E6E6E]">
+                                        {" "}
+                                        Online / Cash Payment
+                                    </span>
+                                </button>
+                                <button className="border-[1px] border-gray-500 py-2 px-2 bg-transparent rounded-md">
+                                    <div className="text-xl font-bold tracking-wide">
+                                        {" "}
+                                        $850/month{" "}
+                                    </div>{" "}
+                                    0% EMI for 6 Months
+                                </button>
+                            </div>
+                            <h1 className="text-2xl font-bold tracking-wide py-2">
+                                {" "}
+                                Well-constructed 1562 Sq Ft Home Is Now Offering
+                                To You In Uttara For Sale
+                            </h1>
+                            <p className="font-semibold tracking-wide text-lg py-2 text-[#7C7E7C]">
+                                A slider is great way to display a slideshow
+                                featuring images or videos, usually on your
+                                homepage.Adding sliders to your site is no
+                                longer difficult. You don’t have to know coding
+                                anymore. Just use a slider widget and it will
+                                automatically insert the slider on your web
+                                page.So, the Elementor slider would be a great
+                                tool to work with when building a WordPress
+                                site.
+                            </p>
+                            <div className="local my-5">
+                                <h1 className="text-2xl font-bold tracking-wide py-2">
+                                    {" "}
+                                    Local Information{" "}
+                                </h1>
+                                <div className="buttons flex gap-5 flex-wrap">
+                                    <button className="hover:bg-black py-2 px-5 hover:text-white rounded-md font-bold border-[1px] border-[#D6D6D6]">
+                                        Map
+                                    </button>
+                                    <button className="hover:bg-black py-2 px-5 hover:text-white rounded-md font-bold border-[1px] border-[#D6D6D6]">
+                                        Schools{" "}
+                                    </button>
+                                    <button className="hover:bg-black py-2 px-5 hover:text-white rounded-md font-bold border-[1px] border-[#D6D6D6]">
+                                        Crime{" "}
+                                    </button>
+                                    <button className="hover:bg-black py-2 px-5 hover:text-white rounded-md font-bold border-[1px] border-[#D6D6D6]">
+                                        Shop & Eat{" "}
+                                    </button>
+                                </div>
+                            </div>
+                            <div className="map">
+                                <iframe
+                                    src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d15047129.1220859!2d79.80519898036316!3d22.964383151756895!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1710268972738!5m2!1sen!2sin"
+                                    width="700"
+                                    height="410"
+                                    loading="lazy"
+                                    className="w-full"
+                                ></iframe>
+                            </div>
+                        </div>
+                        <div className="two flex flex-col gap-4 lg:w-1/3 border-2 border-gray-300 bg-white p-6 rounded-md h-fit mx-auto w-full">
+                            <h1 className="text-3xl font-bold">
+                                Request for Visit
+                            </h1>
+                            <form
+                                action=""
+                                className="flex flex-col"
+                                onSubmit={handleSubmit(onSubmit)}
+                            >
+                                <input
+                                    type="text"
+                                    placeholder="Full Name"
+                                    {...register("name", {
+                                        required: {
+                                            value: true,
+                                            message: "This field is required",
+                                        },
+                                        minLength: {
+                                            value: 3,
+                                            message:
+                                                "The username must consist of at least 3 characters.",
+                                        },
+                                    })}
+                                    className="border-[1px] py-3 px-5 rounded-md border-gray-400 my-2 placeholder:font-bold placeholder:tracking-wide placeholder:text-gray-500 "
+                                />
+                                {errors.name && (
+                                    <span className="text-red-600 flex gap-2 items-center">
+                                        <img
+                                            src={alert}
+                                            alt=""
+                                            className="size-4"
+                                        />
+                                        {errors.name.message}
+                                    </span>
+                                )}
+                                <input
+                                    type="email"
+                                    placeholder="Email Address"
+                                    className="border-[1px] py-3 px-5 rounded-md border-gray-400 my-2 placeholder:font-bold placeholder:tracking-wide placeholder:text-gray-500"
+                                    {...register("email", {
+                                        required: {
+                                            value: true,
+                                            message: "This field is required",
+                                        },
+                                    })}
+                                />
+                                {errors.email && (
+                                    <span className="text-red-600 flex gap-2 items-center">
+                                        <img
+                                            src={alert}
+                                            alt=""
+                                            className="size-4"
+                                        />
+                                        {errors.email.message}
+                                    </span>
+                                )}
+                                <input
+                                    type="tel"
+                                    placeholder="Phone Number"
+                                    className="border-[1px] py-3 px-5 rounded-md border-gray-400 my-2 placeholder:font-bold placeholder:tracking-wide placeholder:text-gray-500"
+                                    {...register("phone", {
+                                        required: {
+                                            value: true,
+                                            message: "This field is required",
+                                        },
+                                        minLength: {
+                                            value: 10,
+                                            message:
+                                                "Enter a correct Phone number",
+                                        },
+                                        maxLength: {
+                                            value: 10,
+                                            message:
+                                                "Enter a correct Phone number",
+                                        },
+                                    })}
+                                />
+                                {errors.phone && (
+                                    <span className="text-red-600 flex gap-2 items-center">
+                                        <img
+                                            src={alert}
+                                            alt=""
+                                            className="size-4"
+                                        />
+                                        {errors.phone.message}
+                                    </span>
+                                )}
+                                <input
+                                    className="border-[1px] py-3 px-5 rounded-md border-gray-400 my-2 placeholder:font-bold placeholder:tracking-wide placeholder:text-gray-500"
+                                    name="msg"
+                                    id="msg"
+                                    type="date"
+                                    placeholder="Date"
+                                    {...register("date", {
+                                        required: {
+                                            value: true,
+                                            message: "This field is required",
+                                        },
+                                        // minLength: {
+                                        //     value: 2,
+                                        //     message:
+                                        //         "Your message must be longer than two characters",
+                                        // },
+                                    })}
+                                />
+                                {errors.date && (
+                                    <span className="text-red-600 flex gap-2 items-center">
+                                        <img
+                                            src={alert}
+                                            alt=""
+                                            className="size-4"
+                                        />
+                                        {errors.date.message}
+                                    </span>
+                                )}
+                                <input
+                                    type="submit"
+                                    value="Send Request"
+                                    disabled={isSubmitting}
+                                    className="font-bold text-white bg-black py-3 px-10 rounded-lg text-lg my-5 cursor-pointer"
+                                    onClick={tochange}
+                                />
+                                {isSubmitSuccessful && visible && (
+                                    <span className=" flex gap-2 items-center text-green-600">
+                                        <img
+                                            src={checked}
+                                            alt=""
+                                            className="size-[16px]"
+                                        />
+                                        Message sent successfully
+                                    </span>
+                                )}
+                            </form>
+                        </div>
+                    </div>
+                    <div className="highlights border-2 border-gray-300 lg:w-2/3 bg-white p-10 rounded-md  w-full ">
+                        <h1 className="text-3xl font-bold tracking-wide py-5">
+                            Home Highlights
+                        </h1>
+                        <div className="justwrap grid-cols-2 md:grid justify-around flex flex-col gap-7">
+                            <div className="fone">
+                                <div className="cont flex justify-between py-2 items-center gap-5">
+                                    <li className="list-disc text-lg font-thin marker:text-gray-500">
+                                        Parking
+                                    </li>
+                                    <p className="text-lg font-semibold">
+                                        Available
+                                    </p>
+                                </div>
+                                <div className="cont flex justify-between py-2 items-center gap-5">
+                                    <li className="list-disc text-lg font-thin marker:text-gray-500">
+                                        Outdoor
+                                    </li>
+                                    <p className="text-lg font-semibold">
+                                        Available
+                                    </p>
+                                </div>
+                                <div className="cont flex justify-between py-2 items-center gap-5">
+                                    <li className="list-disc text-lg font-thin marker:text-gray-500">
+                                        A/C
+                                    </li>
+                                    <p className="text-lg font-semibold">
+                                        Available
+                                    </p>
+                                </div>
+                                <div className="cont flex justify-between py-2 items-center gap-5">
+                                    <li className="list-disc text-lg font-thin marker:text-gray-500">
+                                        Year Built
+                                    </li>
+                                    <p className="text-lg font-semibold">
+                                        2021
+                                    </p>
+                                </div>
+                            </div>
+                            <div className="ftwo">
+                                <div className="cont flex justify-between py-2 items-center gap-5">
+                                    <li className="list-disc text-lg font-thin marker:text-gray-500">
+                                        HOA
+                                    </li>
+                                    <p className="text-lg font-semibold">
+                                        None
+                                    </p>
+                                </div>
+                                <div className="cont flex justify-between py-2 items-center gap-5">
+                                    <li className="list-disc text-lg font-thin marker:text-gray-500">
+                                        Price/Sqft
+                                    </li>
+                                    <p className="text-lg font-semibold">
+                                        ₹ 6,000
+                                    </p>
+                                </div>
+                                <div className="cont flex justify-between py-2 items-center gap-5">
+                                    <li className="list-disc text-lg font-thin marker:text-gray-500">
+                                        Listed
+                                    </li>
+                                    <p className="text-lg font-semibold">Yes</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="agentinfo border-2 border-gray-300 lg:w-2/3 bg-white p-10 rounded-md  w-full my-10 ">
+                        <h1 className="text-2xl font-bold tracking-wide py-2 text-center sm:text-left">
+                            Agent Information
+                        </h1>
+                        <div className="m_w  sm:gap-10 sm:items-start flex flex-col sm:flex-row items-center gap-5">
+                            <div>
+                                <img
+                                    src={agent}
+                                    alt=""
+                                    className="size-[150px] my-5"
+                                />
+                            </div>
+                            <div>
+                                <h1 className="text-lg font-bold tracking-wide py-2">
+                                    Bruno Fernandes
+                                </h1>
+                                <div className="rating flex justify-between gap-2 items-center">
+                                    <div className="wrapper_ratings ">
+                                        <span
+                                            class=""
+                                            data-index="0"
+                                            data-forhalf="★"
+                                            className="text-orange-600 text-lg"
+                                        >
+                                            ★
+                                        </span>
+                                        <span
+                                            class=""
+                                            data-index="0"
+                                            data-forhalf="★"
+                                            className="text-orange-600 text-lg"
+                                        >
+                                            ★
+                                        </span>
+                                        <span
+                                            class=""
+                                            data-index="0"
+                                            data-forhalf="★"
+                                            className="text-orange-600 text-lg"
+                                        >
+                                            ★
+                                        </span>
+                                        <span
+                                            class=""
+                                            data-index="0"
+                                            data-forhalf="★"
+                                            className="text-orange-600 text-lg"
+                                        >
+                                            ★
+                                        </span>
+                                        <span
+                                            class=""
+                                            data-index="0"
+                                            data-forhalf="★"
+                                            className="text-orange-600 text-lg"
+                                        >
+                                            ★
+                                        </span>
+                                    </div>
+                                    <div className="rating_info">
+                                        4.5 reviews
+                                    </div>
+                                </div>
+                                <div className="mail flex gap-2 py-2">
+                                    <img src={env} alt="" />
+                                    <span className="text-[#929292]">
+                                        bruno@askg.com
+                                    </span>
+                                </div>
+                                <div className="mail flex gap-2 py-2">
+                                    <img src={phonecall} alt="" />
+                                    <span className="text-[#929292]">
+                                        +91-88972694351
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <Slider/>
+                    
+                </div>
+            </div>
+            <Footer />
+        </div>
+    );
+};
+
+export default PropertyDetails;
