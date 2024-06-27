@@ -1,13 +1,10 @@
 import React from "react";
 import menubar from "../assets/menu.png";
 import { Link } from "react-router-dom";
-import down from "../assets/down.png";
-import search from "../assets/search.png";
 import askgLogo from "../assets/askgLogo.png";
 
 import cancel from "../assets/close.png";
 
-import { useRef } from "react";
 import { useState } from "react";
 import { useContext } from "react";
 import { userContext } from "../context/userContext";
@@ -59,7 +56,7 @@ const Navbar = () => {
                         /> */}
                         </li>
                         <li className="flex font-semibold text-[17px] gap-2">
-                            <Link to={"/propertydetails"}>Property</Link>
+                            <Link to={"/listing"}>Properties</Link>
                         </li>
                         <li className="flex font-semibold text-[17px] gap-2">
                             <Link to={"/blog"}>Blog</Link>

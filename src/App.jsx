@@ -42,9 +42,10 @@ function App() {
             element: <ListingMap />,
         },
         {
-            path: "/propertydetails",
+            path: "/propertydetails/:id",
             element: <PropertyDetails />,
         },
+        
         {
             path: "/agent",
             element: <Agent />,
@@ -62,7 +63,7 @@ function App() {
             element: <Blog />,
         },
         {
-            path: "/blogdetails",
+            path: "/blogdetails/:id",
             element: <BlogDetails />,
         },
         {
@@ -104,7 +105,7 @@ function App() {
     ]);
 
     return (
-        <> 
+        <>  
             <UserContextProvider >
                 <RouterProvider router={router} />
             </UserContextProvider>

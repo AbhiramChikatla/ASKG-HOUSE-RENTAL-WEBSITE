@@ -6,7 +6,11 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import "dotenv/config";
 import { MongoClient } from "mongodb";
-import { userModel } from "../src/models/UserSchema.js";
+import { HouseModel } from "../src/models/Houses.js";
+import { BlogModel } from "../src/models/Blogs.js";
+import { UserModel } from "../src/models/User.js";
+import { AgentModel } from "../src/models/Agents.js";
+import { BookingModel } from "../src/models/Booking.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import cookieParser from "cookie-parser";
@@ -54,27 +58,21 @@ app.get("/", (req, res) => {
 
 // for fetching all the data of the houses
 app.get("/houses_data", async (req, res) => {
-    const collection = db.collection("houses_data");
-
-    let findResult = await collection.find({}).limit(20).toArray();
+    // const collection = db.collection("houses");
+    let findResult = await HouseModel.find({});
+    // let findResult = await collection.find({}).limit(20).toArray();
     // findResult = findResult.slice(0, 20);
     res.send(findResult);
 });
-app.get("/slider_info", async (req, res) => {
-    const collection = db.collection("houses_data");
 
-    // updated new query
-    let findResult = await collection.find({}).limit(20).toArray();
-    // findResult = findResult.slice(0, 20);
-    res.send(findResult);
-});
 app.get("/agents_data", async (req, res) => {
-    const collection = db.collection("agents_data");
+    // const collection = db.collection("agents_data");
 
     // updated new query
 
-    let findResult = await collection.find({}).limit(5).toArray();
+    // let findResult = await collection.find({}).limit(5).toArray();
     // findResult = findResult.slice(0, 5);
+    let findResult = await AgentModel.find({});
     res.send(findResult);
 });
 
@@ -83,7 +81,7 @@ app.post("/contact", (req, res) => {
     // console.log(req.body);
     const { name, email, phone, msg } = req.body;
     console.log(name, email, phone, msg);
-    res.send("Hello World! from /contact page");
+    res.send("Hello World! from contact page");
 });
 
 app.post("/createaccount", async (req, res) => {
@@ -103,7 +101,7 @@ app.post("/createaccount", async (req, res) => {
     try {
         const EncPassword = await bcrypt.hash(password, 10);
 
-        const createUser = await userModel.create({
+        const createUser = await UserModel.create({
             username,
             email: mail,
             password: EncPassword,
@@ -181,28 +179,24 @@ app.get("/profile", (req, res) => {
             if (err) throw err;
             res.json(user);
         });
-    
-    }else{
-        res.json(null)
+    } else {
+        res.json(null);
     }
 });
 
 app.post("/listing", async (req, res) => {
-    const collection = db.collection("houses_data");
-    let { address, price, category, bedrooms } = req.body;
+    let { price, bedrooms } = req.body;
 
-    let no_of_beds = bedrooms.match(/\d+/g)[0];
-    let min_val = price.match(/\d+/g)[0];
-    let max_val = price.match(/\d+/g)[1];
-    no_of_beds = parseInt(no_of_beds);
-    min_val = parseInt(min_val);
-    max_val = parseInt(max_val);
-
-    // let findResult = await collection.find({ numBathrooms: no_of_beds - 1 }).toArray();
-    let findResult = await collection
-        .find({
+    try {
+        let no_of_beds = bedrooms.match(/\d+/g)[0];
+        let min_val = price.match(/\d+/g)[0];
+        let max_val = price.match(/\d+/g)[1];
+        no_of_beds = parseInt(no_of_beds);
+        min_val = parseInt(min_val);
+        max_val = parseInt(max_val);
+        let findResult = await HouseModel.find({
             $and: [
-                { numBathrooms: no_of_beds - 1 },
+                { numBedrooms: no_of_beds },
                 {
                     price: {
                         $gt: min_val,
@@ -210,18 +204,34 @@ app.post("/listing", async (req, res) => {
                     },
                 },
             ],
-        })
-        .toArray();
+        });
 
-    res.send(findResult);
+        res.send(findResult);
+    } catch (error) {
+        console.log(error);
+    }
 });
-app.post("/propertydetails", (req, res) => {
-    // const {}
-    // console.log(req.body);
-    const { name, email, phone, date } = req.body;
-    console.log(name, email, phone, date);
-    res.send("Hello World! from /contact page");
+ 
+app.get("/propertydetails/:id", async (req, res) => {
+    const { id } = req.params;
+    let ans = await HouseModel.findById(id).populate("owner");
+    res.send(ans);
 });
+
+app.get("/blog", async (req, res) => {
+
+    res.send(await BlogModel.find())
+});
+app.post("/blog", async (req, res) => {
+    res.send('blog from post request')
+});
+
+app.get("/blogdetails/:id", async (req, res) => {
+    const { id } = req.params;
+    let ans = await BlogModel.findById(id).populate("author");
+    res.send(ans);
+});
+
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);

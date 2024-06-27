@@ -23,7 +23,9 @@ const Review = (props) => {
         setSlide(slide + 3);
     };
     return (
-        <div className="two flex mt-10 flex-col lg:flex-row justify-center w-full "
+        <div className="two flex mt-10 flex-col lg:flex-row justify-center w-full 
+        
+        "
         style={props.style}>
             {/* <div className="two-one lg:w-fit lg:p-10 w-full flex justify-center ">
                 <div className="images ">

@@ -34,9 +34,8 @@ import Review from "../components/Review";
 
 const LandingPage = () => {
     const [visible, setVisible] = useState(true);
-    const [reviewdata,setReviewData]=useState([])
-    const [reviewslider, setReviewslider] = useState(0
-    )
+    const [reviewdata, setReviewData] = useState([]);
+    const [reviewslider, setReviewslider] = useState(0);
 
     const {
         register,
@@ -46,21 +45,14 @@ const LandingPage = () => {
         formState: { errors, isSubmitting, isSubmitSuccessful, isSubmitted },
     } = useForm();
 
-    const fetchReviewData=async()=>{
-        let response =await fetch("http://localhost:3000/agents_data");
-        let content=await response.json();
-        setReviewData(content)
-    }
+    const fetchReviewData = async () => {
+        let response = await fetch("http://localhost:3000/agents_data");
+        let content = await response.json();
+        setReviewData(content);
+    };
     useEffect(() => {
         fetchReviewData();
-      
-    
-      
-    }, [])
-    
-
-
-
+    }, []);
 
     function tochange() {
         setTimeout(() => {
@@ -79,7 +71,7 @@ const LandingPage = () => {
         });
         let content = await response.text();
         console.log(data);
-        console.log(content)
+        console.log(content);
     };
     return (
         <div>
@@ -408,20 +400,26 @@ const LandingPage = () => {
                 </div>
             </div>
             <div className="last ">
-                <div className="container-content xl:mx-40  lg:mx-28  md:mx-16 sm:mx-8  px-5 rounded-md my-10 overflow-hidden flex ">
-                {
-                    reviewdata.map((item,index)=>{
-              
-                        return  <Review key={item._id} name={item.full_name} designation={item.designation} company={item.company} desc={item.reviews}  
-                            style={{transform:`translateX(-${100*reviewslider}%)`}}
-                            data={reviewdata}
-                        />
-                        
-                    })
+                {/* <div className="container-content xl:mx-40  lg:mx-28  md:mx-16 sm:mx-8  px-5 rounded-md my-10 overflow-hidden  flex">  */}
 
-
-
-                }
+                <div className="container-content xl:mx-40  lg:mx-28  md:mx-16 sm:mx-8  px-5 rounded-md my-10 overflow-hidden   flex ">
+                    {reviewdata.map((item, index) => {
+                        return (
+                            <Review
+                                key={item._id}
+                                name={item.full_name}
+                                designation={item.designation}
+                                company={item.company}
+                                desc={item.reviews}
+                                style={{
+                                    transform: `translateX(-${
+                                        100 * reviewslider
+                                    }%)`,
+                                }}
+                                data={reviewdata}
+                            />
+                        );
+                    })}
                 </div>
             </div>
             <div className="lastsession bg-[#191919] mt-20 ">
@@ -524,13 +522,12 @@ const LandingPage = () => {
                                 disabled={isSubmitting}
                                 onClick={tochange}
                             />
-                            
                         </form>
                         <div className="flex justify-center my-4  ">
-                        {isSubmitSuccessful && visible && (
+                            {isSubmitSuccessful && visible && (
                                 <span className=" flex gap-2 items-center text-[#32BA7C]">
                                     <img
-                                        src='img/checked.png'
+                                        src="img/checked.png"
                                         alt=""
                                         className="size-[16px]"
                                     />
@@ -547,7 +544,7 @@ const LandingPage = () => {
                                     {errors.email.message}
                                 </span>
                             )}
-                            </div>
+                        </div>
                     </div>
                     <div className="black bg-[#191919] w-full h-[10vw]"></div>
                 </div>

@@ -31,7 +31,6 @@ const Listing = () => {
         let response = await fetch("http://localhost:3000/houses_data");
 
         let fetched_data = await response.json();
-        console.log(fetched_data);
         setCarddata(fetched_data);
     };
 
@@ -41,7 +40,7 @@ const Listing = () => {
 
     const [cont, setCont] = useState([
         "Hyderabad",
-        "₹ 0- ₹ 5,000",
+        "₹ 200,000- ₹ 400,000",
         "Buy",
         "Bed-1",
     ]);
@@ -62,10 +61,8 @@ const Listing = () => {
             body: JSON.stringify(data),
         });
         let content = await response.json();
-        // console.log(content);
-        // console.log(data);
         setCont(Object.values(data));
-        setCarddata(content)
+        setCarddata(content);
     };
     const handleClick = (e) => {
         console.log(e.target, e.target.innerText);
@@ -130,47 +127,41 @@ const Listing = () => {
                                 })}
                             >
                                 <option
-                                    value="₹ 0 - ₹ 5000"
+                                    value="₹ 200000 - ₹ 400000"
                                     className="text-gray-600"
                                 >
-                                    ₹ 0- ₹ 5,000
+                                    ₹ 200,000 - ₹ 400,000
                                 </option>
-                               
+
                                 <option
-                                    value="₹ 5000 - ₹ 10000"
+                                    value="₹ 400000 - ₹ 600000"
                                     className="text-gray-600"
                                 >
-                                    ₹ 5,000- ₹ 10,000
-                                </option>
-                                <option
-                                    value="₹ 10000 - ₹ 15000"
-                                    className="text-gray-600"
-                                >
-                                    ₹ 10,000- ₹ 15,000
+                                    ₹ 400,000 - ₹ 600,000
                                 </option>
                                 <option
-                                    value="₹ 15000 - ₹ 20000"
+                                    value="₹ 600000 - ₹ 800000"
                                     className="text-gray-600"
                                 >
-                                    ₹ 15,000- ₹ 20,000
+                                    ₹ 600,000 - ₹ 800,000
                                 </option>
                                 <option
-                                    value="₹ 20000 - ₹ 30000"
+                                    value="₹ 800000 - ₹ 1000000"
                                     className="text-gray-600"
                                 >
-                                    ₹ 20,000- ₹ 30,000
+                                    ₹ 800,000 - ₹ 1,000,000
                                 </option>
                                 <option
-                                    value="₹ 30000 - ₹ 50000"
+                                    value="₹ 1200000 - ₹ 1400000"
                                     className="text-gray-600"
                                 >
-                                    ₹ 30,000- ₹ 50,000
+                                    ₹ 1,200,000 - ₹ 1,400,000
                                 </option>
                                 <option
-                                    value="₹ 50000 +"
+                                    value="₹ 1400000 - ₹ 1500000"
                                     className="text-gray-600"
                                 >
-                                 Above  ₹ 50,000
+                                    ₹ 1,400,000 - ₹ 1,500,000
                                 </option>
                             </select>
                             <select
@@ -237,19 +228,7 @@ const Listing = () => {
                                     Beds-4 +
                                 </option>
                             </select>
-                            {/* <button className="flex gap-4 text-lg font-bold  px-5 bg-black text-white rounded-md items-center my-2 ">
-                             */}
-                            {/* <button
-                                    className="py-3  rounded-lg lg:my-5 px-4 lg:px-6 my-2 w-[50%] mx-auto md:w-auto md:mx-0 flex gap-2 bg-black text-white items-center font-bold
-                            justify-center"
-                                >
-                                    Search
-                                    <img
-                                        src={search}
-                                        alt=""
-                                        className="size-4 invert"
-                                    />
-                                </button> */}
+
                             <input
                                 type="submit"
                                 value="Search"
@@ -304,13 +283,23 @@ const Listing = () => {
                             </div> */}
                         </div>
                     </div>
-                    <div className={ carddata.length==0 ?"":"grid " + "container  w-full  lg:grid-cols-3 md:grid-cols-2 grid-rows-1 mx-auto my-10 gap-5 justify-center"}>
-                    {carddata.length==0 && <div className="w-full flex flex-col justify-center items-center text-center my-10">
-
-                            <img src="img/no-results.png" alt="" />
-                  <span>  Sorry, we couldn't find any results</span>
-
-                    </div>}
+                    <div
+                        className={
+                            carddata.length == 0
+                                ? ""
+                                : "grid " +
+                                  "container  w-full  lg:grid-cols-3 md:grid-cols-2 grid-rows-1 mx-auto my-10 gap-5 justify-center"
+                        }
+                    >
+                        {carddata.length == 0 && (
+                            <div className="w-full flex flex-col justify-center items-center text-center my-10">
+                                <img src="img/no-results.png" alt="" />
+                                <span>
+                                    {" "}
+                                    Sorry, we couldn't find any results
+                                </span>
+                            </div>
+                        )}
                         {carddata.map((item, index) => {
                             return <Cards key={index} {...item} />;
                         })}
@@ -333,7 +322,7 @@ const Listing = () => {
                         <div className="nextpage">
                             <button className="flex gap-2 border-[1px] border-black  py-2 px-5 rounded-md font-semibold">
                                 Next Page
-                                <img src={right} alt="" /> 
+                                <img src={right} alt="" />
                             </button>
                         </div>
                     </div>

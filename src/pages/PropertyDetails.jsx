@@ -7,29 +7,29 @@ import prp3 from "../assets/prp3.png";
 import alert from "../assets/alert.png";
 import checked from "../assets/checked.png";
 import { useForm } from "react-hook-form";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import agent from "../assets/agent.png";
 import env from "../assets/envelope.png";
 import phonecall from "../assets/telephone.png";
-
-import site1 from "../assets/site1.png";
-import site2 from "../assets/site2.png";
-import site3 from "../assets/site3.png";
-import site4 from "../assets/site4.png";
-import site5 from "../assets/site5.png";
-
-import bath from "../assets/bath.png";
-import location from "../assets/location.png";
-import bed from "../assets/bed.png";
-import expand from "../assets/expand.png";
-import family from "../assets/family.png";
-import { Link } from "react-router-dom";
-
-
-import right from "../assets/right-arrow.png"
 import Slider from "../components/Slider";
+import { useParams } from "react-router-dom";
 const PropertyDetails = () => {
     const [visible, setVisible] = useState(true);
+    const [property, setProperty] = useState([]);
+    const { id } = useParams();
+
+    // to fetch the property
+    const fetchData = async () => {
+        let response = await fetch(
+            "http://localhost:3000/propertydetails/" + id
+        );
+        let content = await response.json();
+        setProperty(content);
+    };
+    useEffect(() => {
+        fetchData();
+    }, [id]);
+
     const {
         register,
         handleSubmit,
@@ -55,7 +55,7 @@ const PropertyDetails = () => {
             body: JSON.stringify(data),
         });
         let content = await response.text();
-        console.log(content, response);
+       
     };
     return (
         <div>
@@ -75,17 +75,16 @@ const PropertyDetails = () => {
                         <div className="one border-2 border-gray-300 lg:w-2/3 bg-white sm:p-10 rounded-md mx-auto w-full px-4  py-5 ">
                             <h1 className="text-2xl font-bold tracking-wide py-2">
                                 {" "}
-                                Trovilla Plan in Sereno Canyon - Estate
-                                Collection by Toll Brothers{" "}
+                                {property.title}
                             </h1>
                             <p className="font-semibold tracking-wide text-lg py-4">
-                                2861 62nd Ave, Oakland, CA 94605
+                                {property.address}
                             </p>
                             <div className="flex gap-5 py-5 flex-wrap justify-start sm:justify-normal">
                                 <button className="border-[1px] border-gray-500 py-2 px-2 bg-transparent rounded-md">
                                     <div className="text-xl font-bold tracking-wide ">
                                         {" "}
-                                        $649,900{" "}
+                                        ${property.price}{" "}
                                     </div>{" "}
                                     <span className="text-[#6E6E6E]">
                                         {" "}
@@ -95,7 +94,7 @@ const PropertyDetails = () => {
                                 <button className="border-[1px] border-gray-500 py-2 px-2 bg-transparent rounded-md">
                                     <div className="text-xl font-bold tracking-wide">
                                         {" "}
-                                        $850/month{" "}
+                                        ${property.emiPerMonth}/month{" "}
                                     </div>{" "}
                                     0% EMI for 6 Months
                                 </button>
@@ -106,15 +105,7 @@ const PropertyDetails = () => {
                                 To You In Uttara For Sale
                             </h1>
                             <p className="font-semibold tracking-wide text-lg py-2 text-[#7C7E7C]">
-                                A slider is great way to display a slideshow
-                                featuring images or videos, usually on your
-                                homepage.Adding sliders to your site is no
-                                longer difficult. You don’t have to know coding
-                                anymore. Just use a slider widget and it will
-                                automatically insert the slider on your web
-                                page.So, the Elementor slider would be a great
-                                tool to work with when building a WordPress
-                                site.
+                                {property.description}
                             </p>
                             <div className="local my-5">
                                 <h1 className="text-2xl font-bold tracking-wide py-2">
@@ -292,7 +283,9 @@ const PropertyDetails = () => {
                                         Parking
                                     </li>
                                     <p className="text-lg font-semibold">
-                                        Available
+                                        {property.parking
+                                            ? "Available"
+                                            : "Not Available"}
                                     </p>
                                 </div>
                                 <div className="cont flex justify-between py-2 items-center gap-5">
@@ -300,7 +293,9 @@ const PropertyDetails = () => {
                                         Outdoor
                                     </li>
                                     <p className="text-lg font-semibold">
-                                        Available
+                                        {property.outdoor
+                                            ? "Available"
+                                            : "Not Available"}
                                     </p>
                                 </div>
                                 <div className="cont flex justify-between py-2 items-center gap-5">
@@ -308,7 +303,9 @@ const PropertyDetails = () => {
                                         A/C
                                     </li>
                                     <p className="text-lg font-semibold">
-                                        Available
+                                        {property.AC
+                                            ? "Available"
+                                            : "Not Available"}
                                     </p>
                                 </div>
                                 <div className="cont flex justify-between py-2 items-center gap-5">
@@ -316,7 +313,7 @@ const PropertyDetails = () => {
                                         Year Built
                                     </li>
                                     <p className="text-lg font-semibold">
-                                        2021
+                                        {property.YearBuilt}
                                     </p>
                                 </div>
                             </div>
@@ -334,7 +331,7 @@ const PropertyDetails = () => {
                                         Price/Sqft
                                     </li>
                                     <p className="text-lg font-semibold">
-                                        ₹ 6,000
+                                        ${property.PricePerSqft}
                                     </p>
                                 </div>
                                 <div className="cont flex justify-between py-2 items-center gap-5">
@@ -360,7 +357,7 @@ const PropertyDetails = () => {
                             </div>
                             <div>
                                 <h1 className="text-lg font-bold tracking-wide py-2">
-                                    Bruno Fernandes
+                                    {property.owner?.name}
                                 </h1>
                                 <div className="rating flex justify-between gap-2 items-center">
                                     <div className="wrapper_ratings ">
@@ -406,26 +403,25 @@ const PropertyDetails = () => {
                                         </span>
                                     </div>
                                     <div className="rating_info">
-                                        4.5 reviews
+                                        {property.owner?.rating} reviews
                                     </div>
                                 </div>
                                 <div className="mail flex gap-2 py-2">
                                     <img src={env} alt="" />
                                     <span className="text-[#929292]">
-                                        bruno@askg.com
+                                    {property.owner?.email}
                                     </span>
                                 </div>
                                 <div className="mail flex gap-2 py-2">
                                     <img src={phonecall} alt="" />
                                     <span className="text-[#929292]">
-                                        +91-88972694351
+                                        +91-{property.owner?.phoneNo}
                                     </span>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <Slider/>
-                    
+                    <Slider />
                 </div>
             </div>
             <Footer />

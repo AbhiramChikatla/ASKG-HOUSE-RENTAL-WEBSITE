@@ -1,16 +1,28 @@
 import React from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import card from "../assets/card.png";
 import right from "../assets/right.png";
 import cancel from "../assets/cancel.png";
 
 import { useForm } from "react-hook-form";
 import alert from "../assets/alert.png";
-import { useState } from "react";
+import { useState,useEffect } from "react";
+import BlogCard from "../components/BlogCard";
 
 const Blog = () => {
     const [cont, setCont] = useState(["Hyderabad", "Buy", "4 star"]);
+    const [blogData,setBlogData]=useState([])
+
+
+    const fetchBlogData = async () => {
+        let response = await fetch("http://localhost:3000/blog");
+        let fetched_data = await response.json();
+        setBlogData(fetched_data);
+    };
+
+    useEffect(() => {
+        fetchBlogData();
+    }, []);
     const {
         register,
         handleSubmit,
@@ -20,16 +32,15 @@ const Blog = () => {
     } = useForm();
     const onSubmit = async (data) => {
         reset();
-        // let response = await fetch("http://localhost:3000/blog", {
-        //     method: "POST",
-        //     headers: {
-        //         "Content-Type": "application/json",
-        //     },
-        //     body: JSON.stringify(data),
-        // });
-        // let content = await response.text();
-        // console.log(content, response);
-        console.log(data);
+        let response = await fetch("http://localhost:3000/blog", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+        });
+        let content = await response.text();
+        console.log(content, response);
         setCont(Object.values(data));
     };
     const handleClick = (e) => {
@@ -157,136 +168,9 @@ const Blog = () => {
                         </div>
                     </div>
                     <div className="container  w-full grid lg:grid-cols-3 md:grid-cols-2 grid-rows-1">
-                        <div className="card  lg:w-[calc(78vw/3)] py-2 px-2 md:w-[calc(78vw/2)] w-full">
-                            <img
-                                src={card}
-                                alt=""
-                                className=" h-[350px] w-full lg:w-auto"
-                            />
-                            <div className="content">
-                                <button className="font-bold text-gray-500  border-2 py-1 px-4 rounded-md my-4 hover:text-white hover:bg-black">
-                                    Business
-                                </button>
-                                <h1 className="font-semibold text-2xl tracking-wide">
-                                    10 Delightful Dining Room Decor Trends for
-                                    Spring
-                                </h1>
-                                <div className="metadata text-gray-600 py-2">
-                                    <ul className="flex gap-5 text-[13px]">
-                                        <li> July 20, 2022</li>
-                                        <li> 7 min read</li>
-                                    </ul>
-                                </div>
-                                <div className="external flex items-center gap-3 text-[#6E6E6E] font-bold text-lg">
-                                    Continue Reading
-                                    <img src={right} alt="" />
-                                </div>
-                            </div>
-                        </div>
-                        <div className="card  lg:w-[calc(78vw/3)] py-2 px-2 md:w-[calc(78vw/2)] w-full">
-                            <img
-                                src={card}
-                                alt=""
-                                className=" h-[350px] w-full lg:w-auto"
-                            />
-                            <div className="content">
-                                <button className="font-bold text-gray-500  border-2 py-1 px-4 rounded-md my-4 hover:text-white hover:bg-black">
-                                    Business
-                                </button>
-                                <h1 className="font-semibold text-2xl tracking-wide">
-                                    10 Delightful Dining Room Decor Trends for
-                                    Spring
-                                </h1>
-                                <div className="metadata text-gray-600 py-2">
-                                    <ul className="flex gap-5 text-[13px]">
-                                        <li> July 20, 2022</li>
-                                        <li> 7 min read</li>
-                                    </ul>
-                                </div>
-                                <div className="external flex items-center gap-3 text-[#6E6E6E] font-bold text-lg">
-                                    Continue Reading
-                                    <img src={right} alt="" />
-                                </div>
-                            </div>
-                        </div>
-                        <div className="card  lg:w-[calc(78vw/3)] py-2 px-2 md:w-[calc(78vw/2)] w-full">
-                            <img
-                                src={card}
-                                alt=""
-                                className=" h-[350px] w-full lg:w-auto"
-                            />
-                            <div className="content">
-                                <button className="font-bold text-gray-500  border-2 py-1 px-4 rounded-md my-4 hover:text-white hover:bg-black">
-                                    Business
-                                </button>
-                                <h1 className="font-semibold text-2xl tracking-wide">
-                                    10 Delightful Dining Room Decor Trends for
-                                    Spring
-                                </h1>
-                                <div className="metadata text-gray-600 py-2">
-                                    <ul className="flex gap-5 text-[13px]">
-                                        <li> July 20, 2022</li>
-                                        <li> 7 min read</li>
-                                    </ul>
-                                </div>
-                                <div className="external flex items-center gap-3 text-[#6E6E6E] font-bold text-lg">
-                                    Continue Reading
-                                    <img src={right} alt="" />
-                                </div>
-                            </div>
-                        </div>
-                        <div className="card  lg:w-[calc(78vw/3)] py-2 px-2 md:w-[calc(78vw/2)] w-full m-auto">
-                            <img
-                                src={card}
-                                alt=""
-                                className=" h-[350px] w-full lg:w-auto"
-                            />
-                            <div className="content">
-                                <button className="font-bold text-gray-500  border-2 py-1 px-4 rounded-md my-4 hover:text-white hover:bg-black">
-                                    Business
-                                </button>
-                                <h1 className="font-semibold text-2xl tracking-wide">
-                                    10 Delightful Dining Room Decor Trends for
-                                    Spring
-                                </h1>
-                                <div className="metadata text-gray-600 py-2">
-                                    <ul className="flex gap-5 text-[13px]">
-                                        <li> July 20, 2022</li>
-                                        <li> 7 min read</li>
-                                    </ul>
-                                </div>
-                                <div className="external flex items-center gap-3 text-[#6E6E6E] font-bold text-lg">
-                                    Continue Reading
-                                    <img src={right} alt="" />
-                                </div>
-                            </div>
-                        </div>
-                        <div className="card  lg:w-[calc(78vw/3)] py-2 px-2 md:w-[calc(78vw/2)] w-full">
-                            <img
-                                src={card}
-                                alt=""
-                                className=" h-[350px] w-full lg:w-auto"
-                            />
-                            <div className="content">
-                                <button className="font-bold text-gray-500  border-2 py-1 px-4 rounded-md my-4 hover:text-white hover:bg-black">
-                                    Business
-                                </button>
-                                <h1 className="font-semibold text-2xl tracking-wide">
-                                    10 Delightful Dining Room Decor Trends for
-                                    Spring
-                                </h1>
-                                <div className="metadata text-gray-600 py-2">
-                                    <ul className="flex gap-5 text-[13px]">
-                                        <li> July 20, 2022</li>
-                                        <li> 7 min read</li>
-                                    </ul>
-                                </div>
-                                <div className="external flex items-center gap-3 text-[#6E6E6E] font-bold text-lg">
-                                    Continue Reading
-                                    <img src={right} alt="" />
-                                </div>
-                            </div>
-                        </div>
+                        {blogData.map((item,ind)=>(
+                             <BlogCard data={item} key={ind}/>
+                        ))}
                     </div>
                     <div className="navigation mt-5 flex justify-between flex-col sm:flex-row gap-2 sm:items-center">
                         <div className="number flex gap-2">
