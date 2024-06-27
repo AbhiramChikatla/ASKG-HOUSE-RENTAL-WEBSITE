@@ -56,7 +56,7 @@ const Navbar = () => {
                         /> */}
                         </li>
                         <li className="flex font-semibold text-[17px] gap-2">
-                            <Link to={"/listing"}>Properties</Link>
+                            <Link to={"/aboutus"}>About Us</Link>
                         </li>
                         <li className="flex font-semibold text-[17px] gap-2">
                             <Link to={"/blog"}>Blog</Link>
