@@ -56,7 +56,7 @@ const Navbar = () => {
                         /> */}
                         </li>
                         <li className="flex font-semibold text-[17px] gap-2">
-                            <Link to={"/aboutus"}>About Us</Link>
+                            <Link to={"/agents"}>Agents</Link>
                         </li>
                         <li className="flex font-semibold text-[17px] gap-2">
                             <Link to={"/blog"}>Blog</Link>
@@ -79,7 +79,7 @@ const Navbar = () => {
                         </button>) } */}
                         {!!LoginUser ? (
                             <Link to={"/account"}>
-                            <div className="text-bold text-lg border-[1px] border-slate-300 rounded-md px-4 py-2 flex  gap-2 items-center">
+                            <div className="text-bold text-lg capitalize border-[1px] border-slate-300 rounded-md px-4 py-2 flex  gap-2 items-center">
                                     <img src="img/menu.png" alt="" />
                                     <img src="img/rsuer.png" alt="" className="mr-5" />
                                 {LoginUser.username}

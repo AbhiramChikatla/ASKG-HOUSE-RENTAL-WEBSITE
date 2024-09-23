@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
-import alert from "../assets/alert.png";
+import aling from "../assets/aling.png";
 import eye from "../assets/eye.svg";
 import crossed from "../assets/crossed.svg";
 import blackchecked from "../assets/blackchecked.png";

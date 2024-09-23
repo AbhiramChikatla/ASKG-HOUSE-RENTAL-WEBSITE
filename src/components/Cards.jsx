@@ -5,6 +5,7 @@ import bed from "../assets/bed.png";
 import expand from "../assets/expand.png";
 import family from "../assets/family.png";  
 import { Link } from "react-router-dom";
+import a from "../assets/a.png"
 
 const Cards = (props) => {
     return (
@@ -18,11 +19,11 @@ const Cards = (props) => {
             <img
                 src={
                     "img" +
-                    "\\site" +
+                    "/site" +
                     String(Math.ceil(0 + Math.random() * 5)) +
                     ".png"
-                }
-                // src='img\site1.png'
+                || a}
+                // src='img/site1.png'
                 alt=""
                 className=" h-[260px] w-full lg:w-auto"
             />

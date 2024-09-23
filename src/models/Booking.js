@@ -5,7 +5,7 @@ const bookingSchema = new mongoose.Schema({
     phoneNo:Number,
     startDate:Date,
     endDate:Date,
-    TotalAmount:Number,
+    totalAmount:Number,
     bookedHouse:{type:mongoose.Schema.Types.ObjectId,ref:"Houses"}
     
 });

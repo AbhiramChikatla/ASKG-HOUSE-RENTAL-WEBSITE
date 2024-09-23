@@ -18,4 +18,3 @@ const agentSchema = new mongoose.Schema({
     property_type: String,
 });
 export const AgentModel = mongoose.model("Agents", agentSchema);
- 

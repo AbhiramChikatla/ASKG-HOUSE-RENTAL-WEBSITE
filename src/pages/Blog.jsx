@@ -5,7 +5,7 @@ import right from "../assets/right.png";
 import cancel from "../assets/cancel.png";
 
 import { useForm } from "react-hook-form";
-import alert from "../assets/alert.png";
+import aling from "../assets/aling.png";
 import { useState,useEffect } from "react";
 import BlogCard from "../components/BlogCard";
 
@@ -149,7 +149,7 @@ const Blog = () => {
                         </form>
                         {(errors.area || errors.category || errors.popular) && (
                             <div className="text-red-600 flex gap-2 items-center  mb-5 justify-center lg:justify-start">
-                                <img src={alert} alt="" className="size-4" />
+                                <img src={aling} alt="" className="size-4" />
                                 Please fill all the details
                             </div>
                         )}

@@ -1,5 +1,4 @@
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
+
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
 import AboutUs from "./pages/AboutUs";
@@ -19,11 +18,11 @@ import FAQ from "./pages/FAQ";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import License from "./pages/License";
 import EnterOTP from "./pages/EnterOTP";
+import AccountPage from "./pages/AccountPage";
 import NewPassword from "./pages/NewPassword";
-import {  UserContextProvider } from "./context/userContext";
+import { UserContextProvider } from "./context/userContext";
 
 function App() {
-
     const router = createBrowserRouter([
         {
             path: "/",
@@ -45,13 +44,13 @@ function App() {
             path: "/propertydetails/:id",
             element: <PropertyDetails />,
         },
-        
+
         {
-            path: "/agent",
+            path: "/agents",
             element: <Agent />,
         },
         {
-            path: "/agentprofile",
+            path: "/agentprofile/:id",
             element: <AgentProfile />,
         },
         {
@@ -102,11 +101,15 @@ function App() {
             path: "/newpassword",
             element: <NewPassword />,
         },
+        {
+            path: "/account",
+            element: <AccountPage />,
+        },
     ]);
 
     return (
-        <>  
-            <UserContextProvider >
+        <>
+            <UserContextProvider>
                 <RouterProvider router={router} />
             </UserContextProvider>
         </>

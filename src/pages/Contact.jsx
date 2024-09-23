@@ -8,7 +8,7 @@ import twitter from "../assets/twitter.png";
 import youtube from "../assets/youtube.png";
 import linkedin from "../assets/linkedin.png";
 import facebook from "../assets/facebook.png";
-import alert from "../assets/alert.png";
+import aling from "../assets/aling.png";
 import checked from "../assets/checked.png"
 
 import { useForm } from "react-hook-form";
@@ -97,7 +97,7 @@ const Contact = () => {
                             {errors.name && (
                                 <span className="text-red-600 flex gap-2 items-center">
                                     <img
-                                        src={alert}
+                                        src={aling}
                                         alt=""
                                         className="size-4"
                                     />
@@ -118,7 +118,7 @@ const Contact = () => {
                             {errors.email && (
                                 <span className="text-red-600 flex gap-2 items-center">
                                     <img
-                                        src={alert}
+                                        src={aling}
                                         alt=""
                                         className="size-4"
                                     />
@@ -147,7 +147,7 @@ const Contact = () => {
                             {errors.phone && (
                                 <span className="text-red-600 flex gap-2 items-center">
                                     <img
-                                        src={alert}
+                                        src={aling}
                                         alt=""
                                         className="size-4"
                                     />
@@ -176,7 +176,7 @@ const Contact = () => {
                             {errors.msg && (
                                 <span className="text-red-600 flex gap-2 items-center">
                                     <img
-                                        src={alert}
+                                        src={aling}
                                         alt=""
                                         className="size-4"
                                     />

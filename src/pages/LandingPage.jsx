@@ -27,7 +27,7 @@ import img1 from "../assets/img1.png";
 import img2 from "../assets/img2.png";
 import img3 from "../assets/img3.png";
 import Slider from "../components/Slider";
-import alert from "../assets/alert.png";
+import aling from "../assets/aling.png";
 
 import { useForm } from "react-hook-form";
 import Review from "../components/Review";
@@ -537,7 +537,7 @@ const LandingPage = () => {
                             {errors.email && (
                                 <span className="text-[#FF1F1F] flex gap-2 items-center justify-start">
                                     <img
-                                        src={alert}
+                                        src={aling}
                                         alt=""
                                         className="size-4"
                                     />

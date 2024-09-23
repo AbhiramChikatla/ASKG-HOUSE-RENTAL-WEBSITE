@@ -21,8 +21,10 @@ const client = new MongoClient(url);
 
 // code written for accepting cookies
 const corsOptions = {
-    origin: "http://localhost:5173",
+    origin: "https://askg.vercel.app",
+    // origin: "http://localhost:5173",
     credentials: true,
+    methods: ["GET", "POST"],
 };
 
 // Database Name
@@ -92,7 +94,7 @@ app.post("/createaccount", async (req, res) => {
     // if (!(username && mail && password)) {
     //     res.status(400).json("please enter all the fields");
     // }
-    const existingUser = await userModel.findOne({ email: mail });
+    const existingUser = await UserModel.findOne({ email: mail });
     if (existingUser) {
         res.status(200).send({ success: false, msg: "User already exists" });
         return;
@@ -104,6 +106,9 @@ app.post("/createaccount", async (req, res) => {
         const createUser = await UserModel.create({
             username,
             email: mail,
+
+
+            
             password: EncPassword,
         });
         const token = jwt.sign({ username: username, email: mail }, jwtSecret, {
@@ -136,7 +141,7 @@ app.post("/login", async (req, res) => {
     // processing skip this part bcoz mongoose will take care of it
 
     // finding the document
-    const findUser = await userModel.findOne({ email });
+    const findUser = await UserModel.findOne({ email });
     if (!findUser) {
         res.send({ success: false, msg: "User not found" });
     }
@@ -197,7 +202,7 @@ app.post("/listing", async (req, res) => {
         let findResult = await HouseModel.find({
             $and: [
                 { numBedrooms: no_of_beds },
-                {
+                { 
                     price: {
                         $gt: min_val,
                         $lt: max_val,
@@ -211,7 +216,7 @@ app.post("/listing", async (req, res) => {
         console.log(error);
     }
 });
- 
+
 app.get("/propertydetails/:id", async (req, res) => {
     const { id } = req.params;
     let ans = await HouseModel.findById(id).populate("owner");
@@ -219,11 +224,10 @@ app.get("/propertydetails/:id", async (req, res) => {
 });
 
 app.get("/blog", async (req, res) => {
-
-    res.send(await BlogModel.find())
+    res.send(await BlogModel.find());
 });
 app.post("/blog", async (req, res) => {
-    res.send('blog from post request')
+    res.send("blog from post request");
 });
 
 app.get("/blogdetails/:id", async (req, res) => {
@@ -231,7 +235,47 @@ app.get("/blogdetails/:id", async (req, res) => {
     let ans = await BlogModel.findById(id).populate("author");
     res.send(ans);
 });
+app.get("/agentprofile/:id", async (req, res) => {
+    const { id } = req.params;
+    let ans = await AgentModel.findById(id);
+    res.send(ans);
+});
+app.get("/fetchownerhouses/:id", async (req, res) => {
+    const { id } = req.params;
+    let ans = await HouseModel.find({ owner: id });
+    res.send(ans);
+}); 
 
+app.post("/booking", async (req, res) => {
+    let data = req.body;
+    let userDoc = await UserModel.findOne({ email: data.email });
+
+    const result = await BookingModel.create({
+        user: userDoc._id,
+        phoneNo: data.phone,
+        startDate: data.startDate,
+        endDate: data.endDate,
+        totalAmount: data.totalAmount,
+        bookedHouse: data.bookedHouse,
+    });
+    res.json(result);
+});
+app.get("/fetchbookings", async (req, res) => {
+    const { token } = req.cookies;
+    if (token) {
+        jwt.verify(token, jwtSecret, {}, async (err, user) => {
+            if (err) throw err;
+            const { email } = user;
+            let userDoc = await UserModel.findOne({ email });
+            const bookingDoc =await BookingModel.find({ user: userDoc._id }).populate("bookedHouse");
+            console.log(bookingDoc);
+            res.send(bookingDoc);
+        });
+    } else {
+        console.log("user not found");
+        res.send("Fail")
+    }
+});
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);

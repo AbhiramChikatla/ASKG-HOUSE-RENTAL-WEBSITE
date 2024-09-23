@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import prp1 from "../assets/prp1.png";
 import prp2 from "../assets/prp2.png";
 import prp3 from "../assets/prp3.png";
-import alert from "../assets/alert.png";
+import aling from "../assets/aling.png";
 import checked from "../assets/checked.png";
 import { useForm } from "react-hook-form";
 import { useState, useEffect } from "react";
@@ -13,10 +13,19 @@ import env from "../assets/envelope.png";
 import phonecall from "../assets/telephone.png";
 import Slider from "../components/Slider";
 import { useParams } from "react-router-dom";
+import { userContext } from "../context/userContext";
+import { differenceInCalendarDays } from "date-fns";
+
 const PropertyDetails = () => {
     const [visible, setVisible] = useState(true);
     const [property, setProperty] = useState([]);
+    const { LoginUser } = useContext(userContext);
+    const [user, SetUser] = useState("");
+    const [days,SetDays]=useState(1);
+    
     const { id } = useParams();
+
+
 
     // to fetch the property
     const fetchData = async () => {
@@ -26,9 +35,16 @@ const PropertyDetails = () => {
         let content = await response.json();
         setProperty(content);
     };
+
     useEffect(() => {
         fetchData();
     }, [id]);
+
+    useEffect(() => {
+        if (LoginUser) {
+            SetUser(LoginUser.username);
+        }
+    }, [LoginUser]);
 
     const {
         register,
@@ -46,16 +62,24 @@ const PropertyDetails = () => {
 
     const onSubmit = async (data) => {
         // console.log(data);
+        const {startDate,endDate}=data;
+        let days=differenceInCalendarDays(endDate,startDate)
+        SetDays(days);
+        confirm(`Do you want to book this place for ${days*property.price}`)
+        console.log("Login User is",LoginUser)
+        
         reset();
-        let response = await fetch("http://localhost:3000/propertydetails", {
+        data={...data,bookedHouse:id,email:LoginUser.email,totalAmount:days*property.price,}
+
+        let response = await fetch("http://localhost:3000/booking", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(data),
         });
-        let content = await response.text();
-       
+        let content = await response.json();
+        console.log(content);
     };
     return (
         <div>
@@ -149,50 +173,32 @@ const PropertyDetails = () => {
                                 <input
                                     type="text"
                                     placeholder="Full Name"
+                                    value={user}
+                                    // onChange={e=> SetUser(e.target.value)}
                                     {...register("name", {
-                                        required: {
-                                            value: true,
-                                            message: "This field is required",
-                                        },
-                                        minLength: {
-                                            value: 3,
-                                            message:
-                                                "The username must consist of at least 3 characters.",
-                                        },
+                                        // required: {
+                                        //     value: true,
+                                        //     message: "This field is required",
+                                        // },
+                                        // minLength: {
+                                        //     value: 3,
+                                        //     message:
+                                        //         "The username must consist of at least 3 characters.",
+                                        // },
                                     })}
-                                    className="border-[1px] py-3 px-5 rounded-md border-gray-400 my-2 placeholder:font-bold placeholder:tracking-wide placeholder:text-gray-500 "
+                                    className="border-[1px] py-3 px-5 rounded-md border-gray-400 my-2    font-semibold capitalize"
                                 />
                                 {errors.name && (
                                     <span className="text-red-600 flex gap-2 items-center">
                                         <img
-                                            src={alert}
+                                            src={aling}
                                             alt=""
                                             className="size-4"
                                         />
                                         {errors.name.message}
                                     </span>
                                 )}
-                                <input
-                                    type="email"
-                                    placeholder="Email Address"
-                                    className="border-[1px] py-3 px-5 rounded-md border-gray-400 my-2 placeholder:font-bold placeholder:tracking-wide placeholder:text-gray-500"
-                                    {...register("email", {
-                                        required: {
-                                            value: true,
-                                            message: "This field is required",
-                                        },
-                                    })}
-                                />
-                                {errors.email && (
-                                    <span className="text-red-600 flex gap-2 items-center">
-                                        <img
-                                            src={alert}
-                                            alt=""
-                                            className="size-4"
-                                        />
-                                        {errors.email.message}
-                                    </span>
-                                )}
+
                                 <input
                                     type="tel"
                                     placeholder="Phone Number"
@@ -217,44 +223,66 @@ const PropertyDetails = () => {
                                 {errors.phone && (
                                     <span className="text-red-600 flex gap-2 items-center">
                                         <img
-                                            src={alert}
+                                            src={aling}
                                             alt=""
                                             className="size-4"
                                         />
                                         {errors.phone.message}
                                     </span>
                                 )}
+
                                 <input
                                     className="border-[1px] py-3 px-5 rounded-md border-gray-400 my-2 placeholder:font-bold placeholder:tracking-wide placeholder:text-gray-500"
-                                    name="msg"
-                                    id="msg"
-                                    type="date"
-                                    placeholder="Date"
-                                    {...register("date", {
+                                    name="startDate"
+                                    id="startDate"
+                                    onFocus={(e) => (e.target.type = "date")}
+                                    type="text"
+                                    placeholder="Start Date"
+                                    {...register("startDate", {
                                         required: {
                                             value: true,
                                             message: "This field is required",
                                         },
-                                        // minLength: {
-                                        //     value: 2,
-                                        //     message:
-                                        //         "Your message must be longer than two characters",
-                                        // },
                                     })}
                                 />
-                                {errors.date && (
+                                {errors.startDate && (
                                     <span className="text-red-600 flex gap-2 items-center">
                                         <img
-                                            src={alert}
+                                            src={aling}
                                             alt=""
                                             className="size-4"
                                         />
-                                        {errors.date.message}
+                                        {errors.startDate.message}
+                                    </span>
+                                )}
+
+                                <input
+                                    className="border-[1px] py-3 px-5 rounded-md border-gray-400 my-2 placeholder:font-bold placeholder:tracking-wide placeholder:text-gray-500"
+                                    name="endDate"
+                                    id="endDate"
+                                    type="text"
+                                    onFocus={(e) => (e.target.type = "date")}
+                                    placeholder="EndDate"
+                                    {...register("endDate", {
+                                        required: {
+                                            value: true,
+                                            message: "This field is required",
+                                        },
+                                    })}
+                                />
+                                {errors.endDate && (
+                                    <span className="text-red-600 flex gap-2 items-center">
+                                        <img
+                                            src={aling}
+                                            alt=""
+                                            className="size-4"
+                                        />
+                                        {errors.endDate.message}
                                     </span>
                                 )}
                                 <input
                                     type="submit"
-                                    value="Send Request"
+                                    value={`Book for $${property.price}`}
                                     disabled={isSubmitting}
                                     className="font-bold text-white bg-black py-3 px-10 rounded-lg text-lg my-5 cursor-pointer"
                                     onClick={tochange}
@@ -266,7 +294,7 @@ const PropertyDetails = () => {
                                             alt=""
                                             className="size-[16px]"
                                         />
-                                        Message sent successfully
+                                        Booking done
                                     </span>
                                 )}
                             </form>
@@ -362,7 +390,6 @@ const PropertyDetails = () => {
                                 <div className="rating flex justify-between gap-2 items-center">
                                     <div className="wrapper_ratings ">
                                         <span
-                                            class=""
                                             data-index="0"
                                             data-forhalf="★"
                                             className="text-orange-600 text-lg"
@@ -370,7 +397,6 @@ const PropertyDetails = () => {
                                             ★
                                         </span>
                                         <span
-                                            class=""
                                             data-index="0"
                                             data-forhalf="★"
                                             className="text-orange-600 text-lg"
@@ -378,7 +404,6 @@ const PropertyDetails = () => {
                                             ★
                                         </span>
                                         <span
-                                            class=""
                                             data-index="0"
                                             data-forhalf="★"
                                             className="text-orange-600 text-lg"
@@ -386,7 +411,6 @@ const PropertyDetails = () => {
                                             ★
                                         </span>
                                         <span
-                                            class=""
                                             data-index="0"
                                             data-forhalf="★"
                                             className="text-orange-600 text-lg"
@@ -394,7 +418,6 @@ const PropertyDetails = () => {
                                             ★
                                         </span>
                                         <span
-                                            class=""
                                             data-index="0"
                                             data-forhalf="★"
                                             className="text-orange-600 text-lg"
@@ -409,7 +432,7 @@ const PropertyDetails = () => {
                                 <div className="mail flex gap-2 py-2">
                                     <img src={env} alt="" />
                                     <span className="text-[#929292]">
-                                    {property.owner?.email}
+                                        {property.owner?.email}
                                     </span>
                                 </div>
                                 <div className="mail flex gap-2 py-2">

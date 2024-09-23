@@ -17,7 +17,7 @@ import bed from "../assets/bed.png";
 import expand from "../assets/expand.png";
 import family from "../assets/family.png";
 import { useForm } from "react-hook-form";
-import alert from "../assets/alert.png";
+import aling from "../assets/aling.png";
 import { useState } from "react";
 import Cards from "../components/Cards";
 
@@ -242,7 +242,7 @@ const Listing = () => {
                                 errors.bedrooms) && (
                                 <span className="text-red-600 flex gap-2 items-center">
                                     <img
-                                        src={alert}
+                                        src={aling}
                                         alt=""
                                         className="size-4"
                                     />
