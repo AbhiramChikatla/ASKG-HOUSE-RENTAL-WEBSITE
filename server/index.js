@@ -22,7 +22,6 @@ const client = new MongoClient(url);
 // code written for accepting cookies
 const corsOptions = {
     origin: "https://askg.vercel.app",
-    // origin: "http://localhost:5173",
     credentials: true,
     methods: ["GET", "POST"],
 };
