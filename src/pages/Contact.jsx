@@ -35,7 +35,7 @@ const Contact = () => {
     const onSubmit = async (data) => {
         // console.log(data);
         reset();
-        let response = await fetch("http://localhost:3000/contact", {
+        let response = await fetch("https://askg-api.vercel.app/contact", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

@@ -23,13 +23,13 @@ const AgentProfile = () => {
     const [ownerHouses, setOwnerHouses] = useState([]);
     const { id } = useParams();
     const fetchData = async () => {
-        let response = await fetch("http://localhost:3000/agentprofile/" + id);
+        let response = await fetch("https://askg-api.vercel.app/agentprofile/" + id);
         let content = await response.json();
         setAgentData(content);
     };
     const fetchHousesData = async () => {
         let response = await fetch(
-            "http://localhost:3000/fetchownerhouses/" + id
+            "https://askg-api.vercel.app/fetchownerhouses/" + id
         );
         let content = await response.json();
         setOwnerHouses(content);

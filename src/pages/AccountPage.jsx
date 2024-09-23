@@ -12,7 +12,7 @@ const AccountPage = () => {
     const { LoginUser } = useContext(userContext);
 
     const fetchUserBookings = async () => {
-        const response = await fetch("http://localhost:3000/fetchbookings", {
+        const response = await fetch("https://askg-api.vercel.app/fetchbookings", {
             method: "GET",
 
             headers: {

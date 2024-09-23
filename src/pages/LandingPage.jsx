@@ -46,7 +46,7 @@ const LandingPage = () => {
     } = useForm();
 
     const fetchReviewData = async () => {
-        let response = await fetch("http://localhost:3000/agents_data");
+        let response = await fetch("https://askg-api.vercel.app/agents_data");
         let content = await response.json();
         setReviewData(content);
     };
@@ -62,7 +62,7 @@ const LandingPage = () => {
     }
     const onSubmitForSub = async (data) => {
         reset();
-        let response = await fetch("http://localhost:3000/subscribe_info", {
+        let response = await fetch("https://askg-api.vercel.app/subscribe_info", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

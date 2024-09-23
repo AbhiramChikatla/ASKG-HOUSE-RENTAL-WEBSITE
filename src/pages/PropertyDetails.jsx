@@ -30,7 +30,7 @@ const PropertyDetails = () => {
     // to fetch the property
     const fetchData = async () => {
         let response = await fetch(
-            "http://localhost:3000/propertydetails/" + id
+            "https://askg-api.vercel.app/propertydetails/" + id
         );
         let content = await response.json();
         setProperty(content);
@@ -71,7 +71,7 @@ const PropertyDetails = () => {
         reset();
         data={...data,bookedHouse:id,email:LoginUser.email,totalAmount:days*property.price,}
 
-        let response = await fetch("http://localhost:3000/booking", {
+        let response = await fetch("https://askg-api.vercel.app/booking", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

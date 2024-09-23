@@ -15,7 +15,7 @@ const Slider = () => {
     const [slide, setSlide] = useState(0);
 
     const fetchData = async () => {
-        let response = await fetch("http://localhost:3000/houses_data");
+        let response = await fetch("https://askg-api.vercel.app/houses_data");
         let fetchedata = await response.json();
         setdata(fetchedata);
     };

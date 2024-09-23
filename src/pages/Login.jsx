@@ -22,7 +22,7 @@ const Login = () => {
     const onSubmit = async (data) => {
         console.log(data);
         reset();
-        let response = await fetch("http://localhost:3000/login", {
+        let response = await fetch("https://askg-api.vercel.app/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

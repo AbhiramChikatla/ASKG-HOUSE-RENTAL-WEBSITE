@@ -28,7 +28,7 @@ const Listing = () => {
     const [carddata, setCarddata] = useState([]);
 
     const fetchCardData = async () => {
-        let response = await fetch("http://localhost:3000/houses_data");
+        let response = await fetch("https://askg-api.vercel.app/houses_data");
 
         let fetched_data = await response.json();
         setCarddata(fetched_data);
@@ -53,7 +53,7 @@ const Listing = () => {
     } = useForm();
     const onSubmit = async (data) => {
         reset();
-        let response = await fetch("http://localhost:3000/listing", {
+        let response = await fetch("https://askg-api.vercel.app/listing", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

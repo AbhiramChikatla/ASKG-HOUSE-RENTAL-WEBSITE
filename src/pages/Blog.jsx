@@ -15,7 +15,7 @@ const Blog = () => {
 
 
     const fetchBlogData = async () => {
-        let response = await fetch("http://localhost:3000/blog");
+        let response = await fetch("https://askg-api.vercel.app/blog");
         let fetched_data = await response.json();
         setBlogData(fetched_data);
     };
@@ -32,7 +32,7 @@ const Blog = () => {
     } = useForm();
     const onSubmit = async (data) => {
         reset();
-        let response = await fetch("http://localhost:3000/blog", {
+        let response = await fetch("https://askg-api.vercel.app/blog", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

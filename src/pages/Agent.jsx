@@ -8,7 +8,7 @@ import AgentCard from "../components/AgentCard";
 const Agent = () => {
     const [agentData, setAgentData] = useState([]);
     const FetchAgentData = async () => {
-        let response = await fetch("http://localhost:3000/agents_data");
+        let response = await fetch("https://askg-api.vercel.app/agents_data");
         let content = await response.json();
         setAgentData(content);
     };

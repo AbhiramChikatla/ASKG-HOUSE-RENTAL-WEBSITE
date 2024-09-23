@@ -20,7 +20,7 @@ const Reset = () => {
     const onSubmit = async (data) => {
         reset();
         console.log(data);
-        let response = await fetch("http://localhost:3000/createaccount", {
+        let response = await fetch("https://askg-api.vercel.app/createaccount", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

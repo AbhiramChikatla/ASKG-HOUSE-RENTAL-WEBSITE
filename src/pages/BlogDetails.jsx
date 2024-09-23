@@ -10,7 +10,7 @@ const BlogDetails = () => {
     const [blog, setBlog] = useState([]);
     const { id } = useParams();
     const fetchBlogData = async () => {
-        let response = await fetch("http://localhost:3000/blogdetails/" + id);
+        let response = await fetch("https://askg-api.vercel.app/blogdetails/" + id);
         let content = await response.json();
         setBlog(content);
     };

@@ -6,12 +6,12 @@ export function UserContextProvider({ children }) {
     const [LoginUser, setLoginUser] = useState(null);
     useEffect(() => {
         // if (!LoginUser) {
-        //     let response = fetch("http://localhost:3000/profile");
+        //     let response = fetch("https://askg-api.vercel.app/profile");
         //     console.log("this is the response",response)
         // }
 
         if (!LoginUser) {
-            fetch("http://localhost:3000/profile", {
+            fetch("https://askg-api.vercel.app/profile", {
                 method: "GET",
 
                 headers: {

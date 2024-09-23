@@ -20,7 +20,7 @@ const NewPassword = () => {
     } = useForm();
     const onSubmit = async (data) => {
         reset();
-        let response = await fetch("http://localhost:3000/newpassword", {
+        let response = await fetch("https://askg-api.vercel.app/newpassword", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
