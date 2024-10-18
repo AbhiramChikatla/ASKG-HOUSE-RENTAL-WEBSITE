@@ -63,16 +63,16 @@ const LandingPage = () => {
     }
     const onSubmitForSub = async (data) => {
         reset();
-        let response = await fetch(`${backendUrl}/subscribe_info`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(data),
-        });
-        let content = await response.text();
-        console.log(data);
-        console.log(content);
+        // let response = await fetch(`${backendUrl}/subscribe_info`, {
+        //     method: "POST",
+        //     headers: {
+        //         "Content-Type": "application/json",
+        //     },
+        //     body: JSON.stringify(data),
+        // });
+        // let content = await response.text();
+        // console.log(data);
+        // console.log(content);
     };
     return (
         <div>

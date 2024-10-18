@@ -16,8 +16,7 @@ import jwt from "jsonwebtoken";
 import cookieParser from "cookie-parser";
 
 // Connection URL
-const url = process.env.MONGO_URI;
-const client = new MongoClient(url);
+
 
 // code written for accepting cookies
 const corsOptions = {
@@ -33,12 +32,10 @@ const dbName = "ASKG";
 
 const jwtSecret = "lasd4831231#^";
 
-await client.connect();
-await mongoose.connect(process.env.MONGO_URI, {
-    dbName: dbName,
-});
+
+await mongoose.connect(process.env.MONGO_URI);
 console.log("Connected successfully to server");
-const db = client.db(dbName);
+
 
 //  instantiations
 const app = express();
@@ -160,8 +157,8 @@ app.post("/newpassword", (req, res) => {
     res.send({ oldpassword, newpassword });
 });
 app.post("/subscribe_info", async (req, res) => {
-    const collection = db.collection("subscribers");
-    const { email } = req.body;
+    // const collection = db.collection("subscribers");
+    // const { email } = req.body;
     // const findResult=await collection.insertOne({email: email})
     //     .then((result) => {
     //         console.log(`added ${email} to subscribers`);
@@ -171,8 +168,9 @@ app.post("/subscribe_info", async (req, res) => {
     //         console.error(err);
     //         res.status(500).send(err);
     //     });
-    const findResult = await collection.insertOne({ email: email });
-    res.send({ sucess: true, result: findResult });
+    // const findResult = await collection.insertOne({ email: email });
+    // res.send({ sucess: true, result: findResult });
+    res.send("Hello World! from subscribe_info page");
 });
 
 app.get("/profile", (req, res) => {
