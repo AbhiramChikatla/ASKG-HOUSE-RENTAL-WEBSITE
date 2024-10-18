@@ -12,7 +12,7 @@ import aling from "../assets/aling.png";
 import checked from "../assets/checked.png"
 
 import { useForm } from "react-hook-form";
-
+import { backendUrl } from "../context/userContext";
 
 const Contact = () => {
     const [visible, setVisible] = useState(true)
@@ -35,7 +35,7 @@ const Contact = () => {
     const onSubmit = async (data) => {
         // console.log(data);
         reset();
-        let response = await fetch("https://askg-api.vercel.app/contact", {
+        let response = await fetch(`${backendUrl}/contact`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

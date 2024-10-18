@@ -5,12 +5,12 @@ import blogheader from "../assets/blogheader.png";
 import backview from "../assets/backview.png";
 import profile from "../assets/profile.png";
 import { useParams } from "react-router-dom";
-import { format, formatDate } from "date-fns";
+import { backendUrl } from "../context/userContext";
 const BlogDetails = () => {
     const [blog, setBlog] = useState([]);
     const { id } = useParams();
     const fetchBlogData = async () => {
-        let response = await fetch("https://askg-api.vercel.app/blogdetails/" + id);
+        let response = await fetch(`${backendUrl}/blogdetails/${id}`);
         let content = await response.json();
         setBlog(content);
     };

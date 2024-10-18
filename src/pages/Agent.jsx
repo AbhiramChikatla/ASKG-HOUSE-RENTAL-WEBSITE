@@ -4,11 +4,12 @@ import Footer from "../components/Footer";
 import right from "../assets/rightwhite.png";
 import rightblack from "../assets/right.png";
 import AgentCard from "../components/AgentCard";
+import { backendUrl } from "../context/userContext";
 
 const Agent = () => {
     const [agentData, setAgentData] = useState([]);
     const FetchAgentData = async () => {
-        let response = await fetch("https://askg-api.vercel.app/agents_data");
+        let response = await fetch(`${backendUrl}/agents_data`);
         let content = await response.json();
         setAgentData(content);
     };

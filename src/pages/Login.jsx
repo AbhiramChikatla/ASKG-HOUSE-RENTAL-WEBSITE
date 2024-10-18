@@ -6,6 +6,7 @@ import crossed from "../assets/crossed.svg";
 import blackchecked from "../assets/blackchecked.png";
 import blackcrossed from "../assets/blackcrossed.png";
 import { Link, Navigate } from "react-router-dom";
+import { backendUrl } from "../context/userContext";
 
 const Login = () => {
     const imgRef = useRef();
@@ -22,7 +23,7 @@ const Login = () => {
     const onSubmit = async (data) => {
         console.log(data);
         reset();
-        let response = await fetch("https://askg-api.vercel.app/login", {
+        let response = await fetch(`${backendUrl}/login`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

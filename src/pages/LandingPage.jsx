@@ -28,6 +28,7 @@ import img2 from "../assets/img2.png";
 import img3 from "../assets/img3.png";
 import Slider from "../components/Slider";
 import aling from "../assets/aling.png";
+import { backendUrl } from "../context/userContext";    
 
 import { useForm } from "react-hook-form";
 import Review from "../components/Review";
@@ -46,7 +47,7 @@ const LandingPage = () => {
     } = useForm();
 
     const fetchReviewData = async () => {
-        let response = await fetch("https://askg-api.vercel.app/agents_data");
+        let response = await fetch(`${backendUrl}/agents_data`);
         let content = await response.json();
         setReviewData(content);
     };
@@ -62,7 +63,7 @@ const LandingPage = () => {
     }
     const onSubmitForSub = async (data) => {
         reset();
-        let response = await fetch("https://askg-api.vercel.app/subscribe_info", {
+        let response = await fetch(`${backendUrl}/subscribe_info`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

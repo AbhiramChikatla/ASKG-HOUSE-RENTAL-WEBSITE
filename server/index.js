@@ -42,7 +42,7 @@ const db = client.db(dbName);
 
 //  instantiations
 const app = express();
-const port = 3000;
+const port = process.env.PORT ||3000;
 
 //  middlewares
 app.use(cors(corsOptions));

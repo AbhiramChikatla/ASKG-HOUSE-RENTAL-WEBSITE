@@ -1,6 +1,8 @@
 import { createContext, useEffect, useState } from "react";
 
 export const userContext = createContext();
+export const frontendUrl = "https://localhost:5173";
+export const backendUrl = "https://localhost:3000";
 
 export function UserContextProvider({ children }) {
     const [LoginUser, setLoginUser] = useState(null);
@@ -11,7 +13,7 @@ export function UserContextProvider({ children }) {
         // }
 
         if (!LoginUser) {
-            fetch("https://askg-api.vercel.app/profile", {
+            fetch(`${backendUrl}/profile`, {
                 method: "GET",
 
                 headers: {

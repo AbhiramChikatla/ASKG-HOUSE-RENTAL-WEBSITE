@@ -5,6 +5,7 @@ import eye from "../assets/eye.svg";
 import crossed from "../assets/crossed.svg";
 import blackchecked from "../assets/blackchecked.png";
 import { Link } from "react-router-dom";
+import { backendUrl } from "../context/userContext";
 
 const NewPassword = () => {
     const imgRef = useRef();
@@ -20,7 +21,7 @@ const NewPassword = () => {
     } = useForm();
     const onSubmit = async (data) => {
         reset();
-        let response = await fetch("https://askg-api.vercel.app/newpassword", {
+        let response = await fetch(`${backendUrl}/newpassword`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

@@ -8,6 +8,7 @@ import blackcrossed from "../assets/blackcrossed.png";
 import { Link, Navigate } from "react-router-dom";
 import { useContext } from "react";
 import { userContext } from "../context/userContext";
+import { backendUrl } from "../context/userContext";
 const CreateAccount = () => {
     const imgRef = useRef();
     const [visible, setVisible] = useState(true);
@@ -24,7 +25,7 @@ const CreateAccount = () => {
     const onSubmit = async (data) => {
         reset();
         console.log(data);
-        let response = await fetch("https://askg-api.vercel.app/createaccount", {
+        let response = await fetch(`${backendUrl}/createaccount`, {
             method: "POST",
 
             headers: {

@@ -1,21 +1,22 @@
 import React, { useEffect, useState } from "react";
 
-import bath from "../assets/bath.png";
-import location from "../assets/location.png";
-import bed from "../assets/bed.png";
-import expand from "../assets/expand.png";
-import family from "../assets/family.png";
-import { Link } from "react-router-dom";
-import Cards from "./Cards";
-import right from "../assets/right-arrow.png";
+// import bath from "../assets/bath.png";
+// import location from "../assets/location.png";
+// import bed from "../assets/bed.png";
+// import expand from "../assets/expand.png";
+// import family from "../assets/family.png";
+// import { Link } from "react-router-dom";
+// import Cards from "./Cards";
+// import right from "../assets/right-arrow.png";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import { backendUrl } from "../context/userContext";
 
 const Slider = () => {
     const [data, setdata] = useState([]);
     const [slide, setSlide] = useState(0);
 
     const fetchData = async () => {
-        let response = await fetch("https://askg-api.vercel.app/houses_data");
+        let response = await fetch(`${backendUrl}/houses_data`);
         let fetchedata = await response.json();
         setdata(fetchedata);
     };

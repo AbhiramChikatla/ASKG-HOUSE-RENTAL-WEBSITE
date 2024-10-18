@@ -16,6 +16,7 @@ import down from "../assets/down.png";
 import { useParams } from "react-router-dom";
 import Cards from "../components/Cards";
 import right from "../assets/right.png";
+import { backendUrl } from "../context/userContext";
 
 import { Link } from "react-router-dom";
 const AgentProfile = () => {
@@ -23,14 +24,13 @@ const AgentProfile = () => {
     const [ownerHouses, setOwnerHouses] = useState([]);
     const { id } = useParams();
     const fetchData = async () => {
-        let response = await fetch("https://askg-api.vercel.app/agentprofile/" + id);
+        let response =await fetch(`${backendUrl}/agentprofile/${id}`);
         let content = await response.json();
         setAgentData(content);
     };
     const fetchHousesData = async () => {
-        let response = await fetch(
-            "https://askg-api.vercel.app/fetchownerhouses/" + id
-        );
+        
+        let response =await fetch(`${backendUrl}/fetchownerhouses/${id}`);
         let content = await response.json();
         setOwnerHouses(content);
     };

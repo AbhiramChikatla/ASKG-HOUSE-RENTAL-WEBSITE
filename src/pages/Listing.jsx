@@ -20,6 +20,7 @@ import { useForm } from "react-hook-form";
 import aling from "../assets/aling.png";
 import { useState } from "react";
 import Cards from "../components/Cards";
+import { backendUrl } from "../context/userContext";
 
 const Listing = () => {
     //  for fetching card data
@@ -28,7 +29,7 @@ const Listing = () => {
     const [carddata, setCarddata] = useState([]);
 
     const fetchCardData = async () => {
-        let response = await fetch("https://askg-api.vercel.app/houses_data");
+        let response = await fetch(`${backendUrl}/houses_data`);
 
         let fetched_data = await response.json();
         setCarddata(fetched_data);
@@ -53,7 +54,7 @@ const Listing = () => {
     } = useForm();
     const onSubmit = async (data) => {
         reset();
-        let response = await fetch("https://askg-api.vercel.app/listing", {
+        let response = await fetch(`${backendUrl}/listing`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

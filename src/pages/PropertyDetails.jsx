@@ -15,6 +15,7 @@ import Slider from "../components/Slider";
 import { useParams } from "react-router-dom";
 import { userContext } from "../context/userContext";
 import { differenceInCalendarDays } from "date-fns";
+import { backendUrl } from "../context/userContext";
 
 const PropertyDetails = () => {
     const [visible, setVisible] = useState(true);
@@ -29,8 +30,9 @@ const PropertyDetails = () => {
 
     // to fetch the property
     const fetchData = async () => {
+       
         let response = await fetch(
-            "https://askg-api.vercel.app/propertydetails/" + id
+            `${backendUrl}/propertydetails/${id}`
         );
         let content = await response.json();
         setProperty(content);
@@ -70,8 +72,8 @@ const PropertyDetails = () => {
         
         reset();
         data={...data,bookedHouse:id,email:LoginUser.email,totalAmount:days*property.price,}
-
-        let response = await fetch("https://askg-api.vercel.app/booking", {
+{
+        let response = await fetch(`${backendUrl}/booking`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -81,6 +83,7 @@ const PropertyDetails = () => {
         let content = await response.json();
         console.log(content);
     };
+}
     return (
         <div>
             <Navbar />

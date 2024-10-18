@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 import aling from "../assets/aling.png";
 import { useState,useEffect } from "react";
 import BlogCard from "../components/BlogCard";
+import { backendUrl } from "../context/userContext";
 
 const Blog = () => {
     const [cont, setCont] = useState(["Hyderabad", "Buy", "4 star"]);
@@ -15,7 +16,7 @@ const Blog = () => {
 
 
     const fetchBlogData = async () => {
-        let response = await fetch("https://askg-api.vercel.app/blog");
+        let response =await fetch(`${backendUrl}/blog`);
         let fetched_data = await response.json();
         setBlogData(fetched_data);
     };
@@ -32,7 +33,8 @@ const Blog = () => {
     } = useForm();
     const onSubmit = async (data) => {
         reset();
-        let response = await fetch("https://askg-api.vercel.app/blog", {
+        
+        let response = await fetch(`${backendUrl}/blog`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

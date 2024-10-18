@@ -5,6 +5,7 @@ import site4 from "../assets/site4.png";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { userContext } from "../context/userContext";
+import { backendUrl } from "../context/userContext";
 
 const AccountPage = () => {
     const [bookList, setBookList] = useState([]);
@@ -12,7 +13,7 @@ const AccountPage = () => {
     const { LoginUser } = useContext(userContext);
 
     const fetchUserBookings = async () => {
-        const response = await fetch("https://askg-api.vercel.app/fetchbookings", {
+        const response = await fetch(`${backendUrl}/fetchbookings`, {
             method: "GET",
 
             headers: {

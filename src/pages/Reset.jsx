@@ -5,6 +5,7 @@ import eye from "../assets/eye.svg";
 import crossed from "../assets/crossed.svg";
 import blackchecked from "../assets/blackchecked.png";
 import { Link } from "react-router-dom";
+import { backendUrl } from "../context/userContext";
 
 const Reset = () => {
     const imgRef = useRef();
@@ -20,7 +21,7 @@ const Reset = () => {
     const onSubmit = async (data) => {
         reset();
         console.log(data);
-        let response = await fetch("https://askg-api.vercel.app/createaccount", {
+        let response = await fetch(`${backendUrl}/createaccount`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
