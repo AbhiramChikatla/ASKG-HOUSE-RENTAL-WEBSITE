@@ -35,7 +35,7 @@ const jwtSecret = "lasd4831231#^";
 
 await mongoose.connect(process.env.MONGO_URI, {
   tls: true,
-  tlsAllowInvalidCertificates: true,
+  tlsInsecure: true,
 });
 console.log("Connected successfully to server");
 
