@@ -2,7 +2,7 @@ import { createContext, useEffect, useState } from "react";
 
 export const userContext = createContext();
 export const frontendUrl = "https://localhost:5173";
-export const backendUrl = "https://localhost:3000";
+export const backendUrl = "https://askg-house-rental-website-backend.onrender.com";
 
 export function UserContextProvider({ children }) {
     const [LoginUser, setLoginUser] = useState(null);
