@@ -1,13 +1,7 @@
 import React, { useEffect, useState } from "react";
 
-// import bath from "../assets/bath.png";
-// import location from "../assets/location.png";
-// import bed from "../assets/bed.png";
-// import expand from "../assets/expand.png";
-// import family from "../assets/family.png";
-// import { Link } from "react-router-dom";
-// import Cards from "./Cards";
-// import right from "../assets/right-arrow.png";
+
+import Cards from "./Cards";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { backendUrl } from "../context/userContext";
 

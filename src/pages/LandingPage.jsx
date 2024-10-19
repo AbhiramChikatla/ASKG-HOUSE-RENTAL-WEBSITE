@@ -63,16 +63,16 @@ const LandingPage = () => {
     }
     const onSubmitForSub = async (data) => {
         reset();
-        // let response = await fetch(`${backendUrl}/subscribe_info`, {
-        //     method: "POST",
-        //     headers: {
-        //         "Content-Type": "application/json",
-        //     },
-        //     body: JSON.stringify(data),
-        // });
-        // let content = await response.text();
-        // console.log(data);
-        // console.log(content);
+        let response = await fetch(`${backendUrl}/subscribe_info`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+        });
+        let content = await response.text();
+        console.log(data);
+        console.log(content);
     };
     return (
         <div>
@@ -400,10 +400,11 @@ const LandingPage = () => {
                     </div>
                 </div>
             </div>
-            <div className="last ">
-                {/* <div className="container-content xl:mx-40  lg:mx-28  md:mx-16 sm:mx-8  px-5 rounded-md my-10 overflow-hidden  flex">  */}
+            {/* here */}
+            {/* <div className="last ">
+                
 
-                <div className="container-content xl:mx-40  lg:mx-28  md:mx-16 sm:mx-8  px-5 rounded-md my-10 overflow-hidden   flex ">
+                <div classNa me="container-content xl:mx-40  lg:mx-28  md:mx-16 sm:mx-8  px-5 rounded-md my-10 overflow-hidden   flex ">
                     {reviewdata.map((item, index) => {
                         return (
                             <Review
@@ -422,7 +423,7 @@ const LandingPage = () => {
                         );
                     })}
                 </div>
-            </div>
+            </div> } */}
             <div className="lastsession bg-[#191919] mt-20 ">
                 <div className="realinside xl:mx-52 text-white lg:mx-40 md:mx-24">
                     <div className="headers flex md:justify-between items-center py-5 flex-col md:flex-row gap-5">

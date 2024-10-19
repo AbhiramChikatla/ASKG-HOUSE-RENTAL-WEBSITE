@@ -7,11 +7,15 @@ import blackchecked from "../assets/blackchecked.png";
 import blackcrossed from "../assets/blackcrossed.png";
 import { Link, Navigate } from "react-router-dom";
 import { backendUrl } from "../context/userContext";
+import { useContext } from "react";
+import { userContext } from "../context/userContext";
 
 const Login = () => {
     const imgRef = useRef();
     const [visible, setVisible] = useState(true);
     const [resMessage, setResMessage] = useState({});
+    const { LoginUser,setLoginUser } = useContext(userContext);
+
 
     const {
         register,
@@ -28,10 +32,14 @@ const Login = () => {
             headers: {
                 "Content-Type": "application/json",
             },
+            credentials: "include",
             body: JSON.stringify(data),
         });
         let content = await response.json();
         setResMessage(content);
+        if (content.success) {
+            setLoginUser(content.user);
+        }
     };
     function tochange() {
         setTimeout(() => {

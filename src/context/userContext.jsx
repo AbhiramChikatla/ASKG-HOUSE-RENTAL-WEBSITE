@@ -3,14 +3,12 @@ import { createContext, useEffect, useState } from "react";
 export const userContext = createContext();
 export const frontendUrl = "https://localhost:5173";
 export const backendUrl = "https://askg-house-rental-website-backend.onrender.com";
+// export const backendUrl = "http://localhost:3000";
 
 export function UserContextProvider({ children }) {
     const [LoginUser, setLoginUser] = useState(null);
     useEffect(() => {
-        // if (!LoginUser) {
-        //     let response = fetch("https://askg-api.vercel.app/profile");
-        //     console.log("this is the response",response)
-        // }
+        
 
         if (!LoginUser) {
             fetch(`${backendUrl}/profile`, {
@@ -21,7 +19,6 @@ export function UserContextProvider({ children }) {
                 },
                 credentials: "include",
 
-                // body: JSON.stringify(data),
             })
                 .then((response) => response.json())
                 .then((data) => {

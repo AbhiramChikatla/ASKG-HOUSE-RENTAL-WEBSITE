@@ -59,7 +59,7 @@ const AgentProfile = () => {
                             </div>
                             <div>
                                 <h1 className="text-2xl font-bold tracking-wide py-2">
-                                    {agentData.name}
+                                    {agentData.email?.split("@")[0]}
                                 </h1>
                                 <div className="rating flex gap-2 items-center justify-around">
                                     <div className="wrapper_ratings ">
@@ -121,7 +121,7 @@ const AgentProfile = () => {
                             <div className="mail flex gap-2 py-2">
                                 <img src={phonecall} alt="" />
                                 <span className="text-[#929292] font-bold">
-                                    +91-{agentData.phoneNo}
+                                    +91-{agentData.phone_number}
                                 </span>
                             </div>
                         </div>
@@ -177,7 +177,7 @@ const AgentProfile = () => {
                                 </div>
                                 <div>
                                     <h1 className="text-xl font-bold tracking-wide py-2">
-                                        {agentData.name}
+                                        {agentData.email?.split("@")[0]}
                                     </h1>
                                     <div className="rating flex justify-between gap-2 items-center">
                                         <div className="wrapper_ratings ">
@@ -235,7 +235,7 @@ const AgentProfile = () => {
                                     <div className="mail flex gap-2 py-2">
                                         <img src={phonecall} alt="" />
                                         <span className="text-[#929292]">
-                                            +91-{agentData.phoneNo}
+                                            +91-{agentData.phone_number}
                                         </span>
                                     </div>
                                 </div>
@@ -255,23 +255,23 @@ const AgentProfile = () => {
                                     Experiences
                                 </h1>
                                 <p className="text-lg tracking-wide text-[#6E6E6E] font-semibold">
-                                    {agentData.experience} + experience
+                                    {agentData.years_experience} + experience
                                 </p>
                             </div>
                             <div className="part py-2">
                                 <h1 className="text-xl font-semibold tracking-wide py-1 ">
-                                    Property Types
+                                    Specialization
                                 </h1>
                                 <p className="text-lg tracking-wide text-[#6E6E6E] font-semibold">
-                                    {agentData.property_types}
+                                    {agentData.specialization}
                                 </p>
                             </div>
                             <div className="part py-2">
                                 <h1 className="text-xl font-semibold tracking-wide py-1 ">
-                                    Area
+                                Active Listings
                                 </h1>
                                 <p className="text-lg tracking-wide text-[#6E6E6E] font-semibold">
-                                    {agentData.area}
+                                    {agentData.active_listings}
                                 </p>
                             </div>
                             <div className="part py-2">
@@ -287,7 +287,7 @@ const AgentProfile = () => {
                                     License No
                                 </h1>
                                 <p className="text-lg tracking-wide text-[#6E6E6E] font-semibold">
-                                    {agentData.license_no}
+                                    {agentData.license_number}
                                 </p>
                             </div>
                             <div className="part py-2">

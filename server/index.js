@@ -5,7 +5,6 @@ import { mongoose } from "mongoose";
 import cors from "cors";
 import bodyParser from "body-parser";
 import "dotenv/config";
-import { MongoClient } from "mongodb";
 import { HouseModel } from "../src/models/Houses.js";
 import { BlogModel } from "../src/models/Blogs.js";
 import { UserModel } from "../src/models/User.js";
@@ -14,36 +13,32 @@ import { BookingModel } from "../src/models/Booking.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import cookieParser from "cookie-parser";
+import { Subscriber } from "../src/models/Subscriber.js";
 
 // Connection URL
 
-
 // code written for accepting cookies
 const corsOptions = {
-    origin: "https://askg.vercel.app",
+    origin: ["https://askg.vercel.app", "http://localhost:5173"],
     credentials: true,
     methods: ["GET", "POST"],
 };
 
 // Database Name
-const dbName = "ASKG";
+// const dbName = "ASKG";
 
 // jwt secret
 
 const jwtSecret = "lasd4831231#^";
 
-
 await mongoose.connect(process.env.MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  tls: true, // Enable TLS
+    tls: true, // Enable TLS
 });
 console.log("Connected successfully to server");
 
-
 //  instantiations
 const app = express();
-const port = process.env.PORT ||3000;
+const port = process.env.PORT || 3000;
 
 //  middlewares
 app.use(cors(corsOptions));
@@ -75,6 +70,7 @@ app.get("/agents_data", async (req, res) => {
     // let findResult = await collection.find({}).limit(5).toArray();
     // findResult = findResult.slice(0, 5);
     let findResult = await AgentModel.find({});
+    // console.log(findResult);
     res.send(findResult);
 });
 
@@ -107,16 +103,14 @@ app.post("/createaccount", async (req, res) => {
             username,
             email: mail,
 
-
-            
             password: EncPassword,
         });
         const token = jwt.sign({ username: username, email: mail }, jwtSecret, {
-            expiresIn: "2 days",
+            expiresIn: "2h",
         });
         // createUser.token = token;
         // createUser.password = undefined;
-        console.log(createUser);
+        // console.log(createUser);
 
         // res.send({
         //     success: true,
@@ -149,12 +143,31 @@ app.post("/login", async (req, res) => {
     // password checking
     const isMatch = await bcrypt.compare(password, findUser.password);
     if (isMatch) {
-        res.send({ success: true, msg: "Login Successful" });
+        // res.send({ success: true, msg: "Login Successful" });
+        const token_data = {
+            username: findUser.username,
+            email: findUser.email,
+        };
+        const token = jwt.sign(token_data, jwtSecret, {
+            expiresIn: "2h",
+        });
+        res.cookie("token", token).send({
+            success: true,
+            msg: "Login Successful",
+            user: token_data,
+        });
     } else {
         res.send({ success: false, msg: "Incorrect Password" });
     }
     // sent a message through the response
 });
+ 
+app.get("/logout", (req, res) => {
+    console.log("logout");
+    res.clearCookie("token").send({success:true, msg: "Logged out successfully" });
+  
+});
+
 app.post("/newpassword", (req, res) => {
     const { oldpassword, newpassword } = req.body;
     console.log(oldpassword, newpassword);
@@ -174,7 +187,9 @@ app.post("/subscribe_info", async (req, res) => {
     //     });
     // const findResult = await collection.insertOne({ email: email });
     // res.send({ sucess: true, result: findResult });
-    res.send("Hello World! from subscribe_info page");
+    const { email } = req.body;
+    const doc = await Subscriber.create({ email });
+    res.send({ success: true, doc });
 });
 
 app.get("/profile", (req, res) => {
@@ -203,7 +218,7 @@ app.post("/listing", async (req, res) => {
         let findResult = await HouseModel.find({
             $and: [
                 { numBedrooms: no_of_beds },
-                { 
+                {
                     price: {
                         $gt: min_val,
                         $lt: max_val,
@@ -227,9 +242,9 @@ app.get("/propertydetails/:id", async (req, res) => {
 app.get("/blog", async (req, res) => {
     res.send(await BlogModel.find());
 });
-app.post("/blog", async (req, res) => {
-    res.send("blog from post request");
-});
+// app.post("/blog", async (req, res) => {
+//     res.send("blog from post request");
+// });
 
 app.get("/blogdetails/:id", async (req, res) => {
     const { id } = req.params;
@@ -245,7 +260,7 @@ app.get("/fetchownerhouses/:id", async (req, res) => {
     const { id } = req.params;
     let ans = await HouseModel.find({ owner: id });
     res.send(ans);
-}); 
+});
 
 app.post("/booking", async (req, res) => {
     let data = req.body;
@@ -268,13 +283,15 @@ app.get("/fetchbookings", async (req, res) => {
             if (err) throw err;
             const { email } = user;
             let userDoc = await UserModel.findOne({ email });
-            const bookingDoc =await BookingModel.find({ user: userDoc._id }).populate("bookedHouse");
-            console.log(bookingDoc);
+            const bookingDoc = await BookingModel.find({
+                user: userDoc._id,
+            }).populate("bookedHouse");
+            // console.log(bookingDoc);
             res.send(bookingDoc);
         });
     } else {
         console.log("user not found");
-        res.send("Fail")
+        res.send("Fail");
     }
 });
 

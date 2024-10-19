@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import menubar from "../assets/menu.png";
 import { Link } from "react-router-dom";
 import askgLogo from "../assets/askgLogo.png";
+import Skeleton from "../components/Skeleton";
+import { FaRegUserCircle } from "react-icons/fa";
 
 import cancel from "../assets/close.png";
 
@@ -9,10 +11,12 @@ import { useState } from "react";
 import { useContext } from "react";
 import { userContext } from "../context/userContext";
 import Login from "../pages/Login";
+import { CircleUserRound } from "lucide-react";
 const Navbar = () => {
     // const menuRef=useRef(null)
     const [active, setActive] = useState(false);
     const { LoginUser } = useContext(userContext);
+    const [visible, setVisible] = useState(false);
     // const [isLoggedIn, setIsLoggedIn] = useState(false);  yet to be implemented
 
     const handleClick = () => {
@@ -23,6 +27,11 @@ const Navbar = () => {
         // }
         setActive(!active);
     };
+    useEffect(() => {
+        setTimeout(() => {
+            setVisible(true);
+        }, 1000);
+    }, []);
     return (
         <>
             <nav className="flex justify-evenly pt-5 items-center mx-6 overflow-x-hidden">
@@ -65,35 +74,35 @@ const Navbar = () => {
                 </div>
                 <div className=" search ">
                     <div className="partone hidden md:flex md:items-center">
-                        {/* <img src={search} className="mr-3 w-[20px] h-[20px]" />
-                        <input
-                            type="text"
-                            placeholder="Search"
-                            className="placeholder:text-gray placeholder:font-medium placeholder:text-lg placeholder:tracking-wide w-[30%]"
-                        /> */}
-                        {/* {!!LoginUser ? (<div>{LoginUser.name}</div>) : ( <button className=" py-2 mr-2 px-5 border-2 border-slate-400 rounded-md font-bold text-gray-900">
-                            <Link to={"/createaccount"}>Sign In</Link>
-                        </button>
-                        <button className="bg-black py-2 px-5 text-white rounded-md font-bold">
-                            <Link to={"/login"}>Log in</Link>
-                        </button>) } */}
-                        {!!LoginUser ? (
-                            <Link to={"/account"}>
-                            <div className="text-bold text-lg capitalize border-[1px] border-slate-300 rounded-md px-4 py-2 flex  gap-2 items-center">
-                                    <img src="img/menu.png" alt="" />
-                                    <img src="img/rsuer.png" alt="" className="mr-5" />
-                                {LoginUser.username}
-                            </div>
-                            </Link>
+                        
+                        {visible ? (
+                            <>
+                                {!!LoginUser ? (
+                                    <Link to={"/account"}>
+                                        <div className="text-bold text-lg capitalize border-[1px] border-slate-300 rounded-md px-4 py-2 flex  gap-2 items-center">
+                                            
+                                            {/* <FaRegUserCircle /> */}
+                                            <CircleUserRound />
+
+                                            {LoginUser.username}
+                                          
+                                        </div>
+                                    </Link>
+                                ) : (
+                                    <div>
+                                        <button className=" py-2 mr-2 px-5 border-2 border-slate-400 rounded-md font-bold text-gray-900">
+                                            <Link to={"/createaccount"}>
+                                                Sign In
+                                            </Link>
+                                        </button>
+                                        <button className="bg-black py-2 px-5 text-white rounded-md font-bold">
+                                            <Link to={"/login"}>Log in</Link>
+                                        </button>
+                                    </div>
+                                )}
+                            </>
                         ) : (
-                            <div>
-                                <button className=" py-2 mr-2 px-5 border-2 border-slate-400 rounded-md font-bold text-gray-900">
-                                    <Link to={"/createaccount"}>Sign In</Link>
-                                </button>
-                                <button className="bg-black py-2 px-5 text-white rounded-md font-bold">
-                                    <Link to={"/login"}>Log in</Link>
-                                </button>
-                            </div>
+                            <Skeleton />
                         )}
                     </div>
                     <div className="menubar parttwo ">

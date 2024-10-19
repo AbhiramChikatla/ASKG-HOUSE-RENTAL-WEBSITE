@@ -11,6 +11,7 @@ const Agent = () => {
     const FetchAgentData = async () => {
         let response = await fetch(`${backendUrl}/agents_data`);
         let content = await response.json();
+        console.log(content)
         setAgentData(content);
     };
 

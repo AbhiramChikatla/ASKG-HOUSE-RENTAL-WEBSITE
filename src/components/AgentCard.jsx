@@ -24,14 +24,13 @@ const AgentCard = ({ item }) => {
             />
             <div className="content">
                 <h1 className="font-semibold text-2xl tracking-wide pt-4">
-                    {item.name}
+                    {item.email.split("@")[0]}
                 </h1>
 
                 <div className="metadata text-gray-600 py-2">
                     <ul className="flex gap-5 text-[13px] items-center justify-normal">
                         <li>
                             <span
-                                class=""
                                 data-index="0"
                                 data-forhalf="★"
                                 className="text-orange-600 text-lg"
@@ -39,7 +38,6 @@ const AgentCard = ({ item }) => {
                                 ★
                             </span>
                             <span
-                                class=""
                                 data-index="0"
                                 data-forhalf="★"
                                 className="text-orange-600 text-lg"
@@ -47,7 +45,6 @@ const AgentCard = ({ item }) => {
                                 ★
                             </span>
                             <span
-                                class=""
                                 data-index="0"
                                 data-forhalf="★"
                                 className="text-orange-600 text-lg"
@@ -55,7 +52,6 @@ const AgentCard = ({ item }) => {
                                 ★
                             </span>
                             <span
-                                class=""
                                 data-index="0"
                                 data-forhalf="★"
                                 className="text-orange-600 text-lg"
@@ -63,7 +59,6 @@ const AgentCard = ({ item }) => {
                                 ★
                             </span>
                             <span
-                                class=""
                                 data-index="0"
                                 data-forhalf="★"
                                 className=" text-lg"
