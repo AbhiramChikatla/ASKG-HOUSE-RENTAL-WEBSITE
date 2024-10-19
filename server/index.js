@@ -33,7 +33,12 @@ const dbName = "ASKG";
 const jwtSecret = "lasd4831231#^";
 
 
-await mongoose.connect(process.env.MONGO_URI);
+await mongoose.connect(process.env.MONGO_URI, {
+  tls: true,
+  tlsInsecure: false,
+  tlsAllowInvalidCertificates: false,
+  tlsAllowInvalidHostnames: false,
+});
 console.log("Connected successfully to server");
 
 
